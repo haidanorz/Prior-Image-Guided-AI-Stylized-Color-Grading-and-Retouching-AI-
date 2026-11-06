@@ -1,0 +1,99 @@
+{
+  "package_schema_version": "1.1.0",
+  "package_id": "fpkg_4cf907c5c9bdce40",
+  "package_hash": "4cf907c5c9bdce40a943bce82a312f6ebb1293f4b7c3b96b03f6fd865ce8fa7c",
+  "fingerprint_id": "fp_2c4d86fbbcd22f19",
+  "fingerprint_hash": "2c4d86fbbcd22f1974411dc2c69cca56a924a71aff05cb7d7a476e7496910540",
+  "created_at": "2026-11-06T16:34:21Z",
+  "status": "draft",
+  "application_ready": false,
+  "validation_scope": "analysis_consistency",
+  "source_build": {
+    "build_id": "sample_demo",
+    "profile_id": "profile_sample_demo",
+    "input_fingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+    "config_hash": "sample_config_hash",
+    "response_set_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+    "aggregate_hash": "2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "counts": {
+    "files": 13,
+    "buckets": 2,
+    "global_parameters": 4,
+    "bucket_parameters": 16,
+    "insufficient_parameters": 3
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "73f1a8f88127a7c1e1d667709d9c91943b68d815601c6ecbdb4f4a47fd5e50e1",
+      "bytes": 912
+    },
+    {
+      "path": "buckets/index.json",
+      "sha256": "d1fb0c45b9b0a6e3b7634eb2c46686c19c8936d34e478f5c532a95d4d524bdb8",
+      "bytes": 841
+    },
+    {
+      "path": "buckets/natural_landscape/delta.json",
+      "sha256": "754e5fb61cfb187ca70cc28d7c1e51537fa6a5bdb212ebae1f86e6747368174f",
+      "bytes": 105
+    },
+    {
+      "path": "buckets/natural_landscape/narrative.json",
+      "sha256": "1624ccde76568e09bdb558b1a8f416ba0c1214d01f6635412290eac85b0b403c",
+      "bytes": 948
+    },
+    {
+      "path": "buckets/natural_landscape/profile.json",
+      "sha256": "9237af2de0cb33abd8c7ba414dbe95e05a3d059504049571105434dd3caa86f4",
+      "bytes": 2891
+    },
+    {
+      "path": "buckets/natural_landscape/stats.json",
+      "sha256": "90d432ec3f20fd6144e4637c0051963f204300d081ab9df95876e19d4259ed90",
+      "bytes": 885
+    },
+    {
+      "path": "buckets/urban_architecture/delta.json",
+      "sha256": "754e5fb61cfb187ca70cc28d7c1e51537fa6a5bdb212ebae1f86e6747368174f",
+      "bytes": 105
+    },
+    {
+      "path": "buckets/urban_architecture/narrative.json",
+      "sha256": "ba506c7042e0924a6a0f32687c4c2fb577aa25a3111ffe9a1891d7dcaa4049a0",
+      "bytes": 922
+    },
+    {
+      "path": "buckets/urban_architecture/profile.json",
+      "sha256": "d14cffa0d43eb66e2737bdb01ddb41ddb8e9db6a56328e07b7ef3227d5003d17",
+      "bytes": 2887
+    },
+    {
+      "path": "buckets/urban_architecture/stats.json",
+      "sha256": "a811c48f235de5584f6eab78a5000153c785248fe4a389450cb371e12cc7fb41",
+      "bytes": 876
+    },
+    {
+      "path": "fingerprint.json",
+      "sha256": "73f1bbb33db2970ac1116dac3bff06dc23a63f60ee9fa9025f2fcdf49ea279d6",
+      "bytes": 10128
+    },
+    {
+      "path": "global_signature.json",
+      "sha256": "fff29debc07db15b7da7a4000d7df371dd3bce52666e56c11132f2908b1fe39e",
+      "bytes": 1893
+    },
+    {
+      "path": "profile.json",
+      "sha256": "54a8401d38ee6a6f71eb1bff938e418a7d8e4a3cf64015dd9c7a4345eb864156",
+      "bytes": 7154
+    }
+  ],
+  "notes": [
+    "这是离线编码器的特征指纹包，不包含 XMP、原图或单图分析原文。",
+    "status=draft / application_ready=false：桶参数仍为 draft，未通过 §13 发布门槛。",
+    "shape=bucket_primary：桶参数是主路径，global 仅作未命中桶的兜底。",
+    "在线解码器只应读取 fingerprint.json；其余文件用于证据与审计。"
+  ]
+}

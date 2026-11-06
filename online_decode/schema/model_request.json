@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "online_decode/model_request.json",
+  "title": "控制器发给模型的请求包",
+  "type": "object",
+  "required": [
+    "request_schema_version",
+    "task",
+    "session_id",
+    "round",
+    "images"
+  ],
+  "properties": {
+    "request_schema_version": {
+      "const": "1.0.0"
+    },
+    "task": {
+      "enum": [
+        "scene",
+        "brief",
+        "plan",
+        "evaluate"
+      ]
+    },
+    "session_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "round": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5
+    },
+    "images": {
+      "type": "object",
+      "required": [
+        "original",
+        "current",
+        "previous"
+      ],
+      "properties": {
+        "original": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "current": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "previous": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "limits": {
+      "type": "object"
+    },
+    "brief": {
+      "type": "object"
+    },
+    "fingerprint": {
+      "type": "object"
+    },
+    "metrics": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "history": {
+      "type": "array"
+    },
+    "user_intent": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "style_strength": {
+      "type": "number"
+    }
+  },
+  "additionalProperties": true
+}

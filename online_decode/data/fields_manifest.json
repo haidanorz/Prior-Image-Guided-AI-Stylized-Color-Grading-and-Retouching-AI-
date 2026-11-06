@@ -1,0 +1,1041 @@
+{
+  "manifest_version": "1.0.0",
+  "source": "AI-XMP-Color-Importer.lrdevplugin/src/XmpMapping.lua",
+  "source_sha256": "9f2db2f0581eded11ef755c1152376617495f0efabc6c02deca6c3d1547a1413",
+  "fields_version": "1.0.0",
+  "counts": {
+    "v1": 65,
+    "ext": 22,
+    "total": 87
+  },
+  "fields": {
+    "AutoLateralCA": {
+      "sdk": "AutoLateralCA",
+      "type": "number",
+      "group": "extLens",
+      "tier": "ext",
+      "range": [
+        0,
+        1
+      ],
+      "display": "Remove Chromatic Aberration"
+    },
+    "Blacks2012": {
+      "sdk": "Blacks2012",
+      "type": "number",
+      "group": "basic",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Blacks"
+    },
+    "Clarity2012": {
+      "sdk": "Clarity2012",
+      "type": "number",
+      "group": "basic",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Clarity"
+    },
+    "ColorGradeBlending": {
+      "sdk": "ColorGradeBlending",
+      "type": "number",
+      "group": "colorgrading",
+      "tier": "v1",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Blending"
+    },
+    "ColorGradeGlobalHue": {
+      "sdk": "ColorGradeGlobalHue",
+      "type": "number",
+      "group": "colorgrading",
+      "tier": "v1",
+      "range": [
+        0,
+        360
+      ],
+      "display": "Global Hue"
+    },
+    "ColorGradeGlobalLum": {
+      "sdk": "ColorGradeGlobalLum",
+      "type": "number",
+      "group": "colorgrading",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Global Luminance"
+    },
+    "ColorGradeGlobalSat": {
+      "sdk": "ColorGradeGlobalSat",
+      "type": "number",
+      "group": "colorgrading",
+      "tier": "v1",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Global Saturation"
+    },
+    "ColorGradeHighlightLum": {
+      "sdk": "ColorGradeHighlightLum",
+      "type": "number",
+      "group": "colorgrading",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Highlights Luminance"
+    },
+    "ColorGradeMidtoneHue": {
+      "sdk": "ColorGradeMidtoneHue",
+      "type": "number",
+      "group": "colorgrading",
+      "tier": "v1",
+      "range": [
+        0,
+        360
+      ],
+      "display": "Midtones Hue"
+    },
+    "ColorGradeMidtoneLum": {
+      "sdk": "ColorGradeMidtoneLum",
+      "type": "number",
+      "group": "colorgrading",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Midtones Luminance"
+    },
+    "ColorGradeMidtoneSat": {
+      "sdk": "ColorGradeMidtoneSat",
+      "type": "number",
+      "group": "colorgrading",
+      "tier": "v1",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Midtones Saturation"
+    },
+    "ColorGradeShadowLum": {
+      "sdk": "ColorGradeShadowLum",
+      "type": "number",
+      "group": "colorgrading",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Shadows Luminance"
+    },
+    "ColorNoiseReduction": {
+      "sdk": "ColorNoiseReduction",
+      "type": "number",
+      "group": "extDetail",
+      "tier": "ext",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Color Noise Reduction"
+    },
+    "ColorNoiseReductionDetail": {
+      "sdk": "ColorNoiseReductionDetail",
+      "type": "number",
+      "group": "extDetail",
+      "tier": "ext",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Color NR Detail"
+    },
+    "ColorNoiseReductionSmoothness": {
+      "sdk": "ColorNoiseReductionSmoothness",
+      "type": "number",
+      "group": "extDetail",
+      "tier": "ext",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Color NR Smoothness"
+    },
+    "Contrast2012": {
+      "sdk": "Contrast2012",
+      "type": "number",
+      "group": "basic",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Contrast"
+    },
+    "ConvertToGrayscale": {
+      "sdk": "ConvertToGrayscale",
+      "type": "boolean",
+      "group": "basic",
+      "tier": "v1",
+      "range": null,
+      "display": "Convert to B&W"
+    },
+    "Dehaze": {
+      "sdk": "Dehaze",
+      "type": "number",
+      "group": "basic",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Dehaze"
+    },
+    "Exposure2012": {
+      "sdk": "Exposure2012",
+      "type": "number",
+      "group": "basic",
+      "tier": "v1",
+      "range": [
+        -5,
+        5
+      ],
+      "display": "Exposure"
+    },
+    "GrainAmount": {
+      "sdk": "GrainAmount",
+      "type": "number",
+      "group": "extEffects",
+      "tier": "ext",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Grain Amount"
+    },
+    "GrainFrequency": {
+      "sdk": "GrainFrequency",
+      "type": "number",
+      "group": "extEffects",
+      "tier": "ext",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Grain Frequency"
+    },
+    "GrainSize": {
+      "sdk": "GrainSize",
+      "type": "number",
+      "group": "extEffects",
+      "tier": "ext",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Grain Size"
+    },
+    "Highlights2012": {
+      "sdk": "Highlights2012",
+      "type": "number",
+      "group": "basic",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Highlights"
+    },
+    "HueAdjustmentAqua": {
+      "sdk": "HueAdjustmentAqua",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Aqua Hue",
+      "colorChannel": "Aqua"
+    },
+    "HueAdjustmentBlue": {
+      "sdk": "HueAdjustmentBlue",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Blue Hue",
+      "colorChannel": "Blue"
+    },
+    "HueAdjustmentGreen": {
+      "sdk": "HueAdjustmentGreen",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Green Hue",
+      "colorChannel": "Green"
+    },
+    "HueAdjustmentMagenta": {
+      "sdk": "HueAdjustmentMagenta",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Magenta Hue",
+      "colorChannel": "Magenta"
+    },
+    "HueAdjustmentOrange": {
+      "sdk": "HueAdjustmentOrange",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Orange Hue",
+      "colorChannel": "Orange"
+    },
+    "HueAdjustmentPurple": {
+      "sdk": "HueAdjustmentPurple",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Purple Hue",
+      "colorChannel": "Purple"
+    },
+    "HueAdjustmentRed": {
+      "sdk": "HueAdjustmentRed",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Red Hue",
+      "colorChannel": "Red"
+    },
+    "HueAdjustmentYellow": {
+      "sdk": "HueAdjustmentYellow",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Yellow Hue",
+      "colorChannel": "Yellow"
+    },
+    "LuminanceAdjustmentAqua": {
+      "sdk": "LuminanceAdjustmentAqua",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Aqua Luminance",
+      "colorChannel": "Aqua"
+    },
+    "LuminanceAdjustmentBlue": {
+      "sdk": "LuminanceAdjustmentBlue",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Blue Luminance",
+      "colorChannel": "Blue"
+    },
+    "LuminanceAdjustmentGreen": {
+      "sdk": "LuminanceAdjustmentGreen",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Green Luminance",
+      "colorChannel": "Green"
+    },
+    "LuminanceAdjustmentMagenta": {
+      "sdk": "LuminanceAdjustmentMagenta",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Magenta Luminance",
+      "colorChannel": "Magenta"
+    },
+    "LuminanceAdjustmentOrange": {
+      "sdk": "LuminanceAdjustmentOrange",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Orange Luminance",
+      "colorChannel": "Orange"
+    },
+    "LuminanceAdjustmentPurple": {
+      "sdk": "LuminanceAdjustmentPurple",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Purple Luminance",
+      "colorChannel": "Purple"
+    },
+    "LuminanceAdjustmentRed": {
+      "sdk": "LuminanceAdjustmentRed",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Red Luminance",
+      "colorChannel": "Red"
+    },
+    "LuminanceAdjustmentYellow": {
+      "sdk": "LuminanceAdjustmentYellow",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Yellow Luminance",
+      "colorChannel": "Yellow"
+    },
+    "LuminanceNoiseReductionContrast": {
+      "sdk": "LuminanceNoiseReductionContrast",
+      "type": "number",
+      "group": "extDetail",
+      "tier": "ext",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Luminance NR Contrast"
+    },
+    "LuminanceNoiseReductionDetail": {
+      "sdk": "LuminanceNoiseReductionDetail",
+      "type": "number",
+      "group": "extDetail",
+      "tier": "ext",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Luminance NR Detail"
+    },
+    "LuminanceSmoothing": {
+      "sdk": "LuminanceSmoothing",
+      "type": "number",
+      "group": "extDetail",
+      "tier": "ext",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Luminance Noise Reduction"
+    },
+    "OverrideLookVignette": {
+      "sdk": "OverrideLookVignette",
+      "type": "boolean",
+      "group": "extLens",
+      "tier": "ext",
+      "range": null,
+      "display": "Override Look Vignette"
+    },
+    "ParametricDarks": {
+      "sdk": "ParametricDarks",
+      "type": "number",
+      "group": "parametric",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Parametric Darks"
+    },
+    "ParametricHighlightSplit": {
+      "sdk": "ParametricHighlightSplit",
+      "type": "number",
+      "group": "parametric",
+      "tier": "v1",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Highlight Split"
+    },
+    "ParametricHighlights": {
+      "sdk": "ParametricHighlights",
+      "type": "number",
+      "group": "parametric",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Parametric Highlights"
+    },
+    "ParametricLights": {
+      "sdk": "ParametricLights",
+      "type": "number",
+      "group": "parametric",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Parametric Lights"
+    },
+    "ParametricMidtoneSplit": {
+      "sdk": "ParametricMidtoneSplit",
+      "type": "number",
+      "group": "parametric",
+      "tier": "v1",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Midtone Split"
+    },
+    "ParametricShadowSplit": {
+      "sdk": "ParametricShadowSplit",
+      "type": "number",
+      "group": "parametric",
+      "tier": "v1",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Shadow Split"
+    },
+    "ParametricShadows": {
+      "sdk": "ParametricShadows",
+      "type": "number",
+      "group": "parametric",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Parametric Shadows"
+    },
+    "PostCropVignetteAmount": {
+      "sdk": "PostCropVignetteAmount",
+      "type": "number",
+      "group": "extEffects",
+      "tier": "ext",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Post-Crop Vignette Amount"
+    },
+    "PostCropVignetteFeather": {
+      "sdk": "PostCropVignetteFeather",
+      "type": "number",
+      "group": "extEffects",
+      "tier": "ext",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Vignette Feather"
+    },
+    "PostCropVignetteHighlightContrast": {
+      "sdk": "PostCropVignetteHighlightContrast",
+      "type": "number",
+      "group": "extEffects",
+      "tier": "ext",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Vignette Highlight Contrast"
+    },
+    "PostCropVignetteMidpoint": {
+      "sdk": "PostCropVignetteMidpoint",
+      "type": "number",
+      "group": "extEffects",
+      "tier": "ext",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Vignette Midpoint"
+    },
+    "PostCropVignetteRoundness": {
+      "sdk": "PostCropVignetteRoundness",
+      "type": "number",
+      "group": "extEffects",
+      "tier": "ext",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Vignette Roundness"
+    },
+    "PostCropVignetteStyle": {
+      "sdk": "PostCropVignetteStyle",
+      "type": "enum",
+      "group": "extEffects",
+      "tier": "ext",
+      "range": null,
+      "display": "Vignette Style"
+    },
+    "Saturation": {
+      "sdk": "Saturation",
+      "type": "number",
+      "group": "basic",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Saturation"
+    },
+    "SaturationAdjustmentAqua": {
+      "sdk": "SaturationAdjustmentAqua",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Aqua Saturation",
+      "colorChannel": "Aqua"
+    },
+    "SaturationAdjustmentBlue": {
+      "sdk": "SaturationAdjustmentBlue",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Blue Saturation",
+      "colorChannel": "Blue"
+    },
+    "SaturationAdjustmentGreen": {
+      "sdk": "SaturationAdjustmentGreen",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Green Saturation",
+      "colorChannel": "Green"
+    },
+    "SaturationAdjustmentMagenta": {
+      "sdk": "SaturationAdjustmentMagenta",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Magenta Saturation",
+      "colorChannel": "Magenta"
+    },
+    "SaturationAdjustmentOrange": {
+      "sdk": "SaturationAdjustmentOrange",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Orange Saturation",
+      "colorChannel": "Orange"
+    },
+    "SaturationAdjustmentPurple": {
+      "sdk": "SaturationAdjustmentPurple",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Purple Saturation",
+      "colorChannel": "Purple"
+    },
+    "SaturationAdjustmentRed": {
+      "sdk": "SaturationAdjustmentRed",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Red Saturation",
+      "colorChannel": "Red"
+    },
+    "SaturationAdjustmentYellow": {
+      "sdk": "SaturationAdjustmentYellow",
+      "type": "number",
+      "group": "hsl",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Yellow Saturation",
+      "colorChannel": "Yellow"
+    },
+    "ShadowTint": {
+      "sdk": "ShadowTint",
+      "type": "number",
+      "group": "extCalibrate",
+      "tier": "ext",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Shadow Tint"
+    },
+    "Shadows2012": {
+      "sdk": "Shadows2012",
+      "type": "number",
+      "group": "basic",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Shadows"
+    },
+    "SharpenDetail": {
+      "sdk": "SharpenDetail",
+      "type": "number",
+      "group": "extDetail",
+      "tier": "ext",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Sharpen Detail"
+    },
+    "SharpenEdgeMasking": {
+      "sdk": "SharpenEdgeMasking",
+      "type": "number",
+      "group": "extDetail",
+      "tier": "ext",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Sharpen Edge Masking"
+    },
+    "SharpenRadius": {
+      "sdk": "SharpenRadius",
+      "type": "number",
+      "group": "extDetail",
+      "tier": "ext",
+      "range": [
+        0.5,
+        3
+      ],
+      "display": "Sharpen Radius"
+    },
+    "Sharpness": {
+      "sdk": "Sharpness",
+      "type": "number",
+      "group": "extDetail",
+      "tier": "ext",
+      "range": [
+        0,
+        150
+      ],
+      "display": "Sharpening Amount"
+    },
+    "SplitToningBalance": {
+      "sdk": "SplitToningBalance",
+      "type": "number",
+      "group": "colorgrading",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Balance"
+    },
+    "SplitToningHighlightHue": {
+      "sdk": "SplitToningHighlightHue",
+      "type": "number",
+      "group": "colorgrading",
+      "tier": "v1",
+      "range": [
+        0,
+        360
+      ],
+      "display": "Highlights Hue"
+    },
+    "SplitToningHighlightSaturation": {
+      "sdk": "SplitToningHighlightSaturation",
+      "type": "number",
+      "group": "colorgrading",
+      "tier": "v1",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Highlights Saturation"
+    },
+    "SplitToningShadowHue": {
+      "sdk": "SplitToningShadowHue",
+      "type": "number",
+      "group": "colorgrading",
+      "tier": "v1",
+      "range": [
+        0,
+        360
+      ],
+      "display": "Shadows Hue"
+    },
+    "SplitToningShadowSaturation": {
+      "sdk": "SplitToningShadowSaturation",
+      "type": "number",
+      "group": "colorgrading",
+      "tier": "v1",
+      "range": [
+        0,
+        100
+      ],
+      "display": "Shadows Saturation"
+    },
+    "Temperature": {
+      "sdk": "Temperature",
+      "type": "number",
+      "group": "whitebalance",
+      "tier": "v1",
+      "range": null,
+      "display": "Temperature (K)"
+    },
+    "Texture": {
+      "sdk": "Texture",
+      "type": "number",
+      "group": "basic",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Texture"
+    },
+    "Tint": {
+      "sdk": "Tint",
+      "type": "number",
+      "group": "whitebalance",
+      "tier": "v1",
+      "range": [
+        -150,
+        150
+      ],
+      "display": "Tint"
+    },
+    "ToneCurveName2012": {
+      "sdk": "ToneCurveName2012",
+      "type": "enum",
+      "group": "tonecurve",
+      "tier": "v1",
+      "range": null,
+      "display": "Tone Curve Name"
+    },
+    "ToneCurvePV2012": {
+      "sdk": "ToneCurvePV2012",
+      "type": "toneCurve",
+      "group": "tonecurve",
+      "tier": "v1",
+      "range": null,
+      "display": "Point Curve"
+    },
+    "ToneCurvePV2012Blue": {
+      "sdk": "ToneCurvePV2012Blue",
+      "type": "toneCurve",
+      "group": "tonecurve",
+      "tier": "v1",
+      "range": null,
+      "display": "Point Curve (Blue)"
+    },
+    "ToneCurvePV2012Green": {
+      "sdk": "ToneCurvePV2012Green",
+      "type": "toneCurve",
+      "group": "tonecurve",
+      "tier": "v1",
+      "range": null,
+      "display": "Point Curve (Green)"
+    },
+    "ToneCurvePV2012Red": {
+      "sdk": "ToneCurvePV2012Red",
+      "type": "toneCurve",
+      "group": "tonecurve",
+      "tier": "v1",
+      "range": null,
+      "display": "Point Curve (Red)"
+    },
+    "Vibrance": {
+      "sdk": "Vibrance",
+      "type": "number",
+      "group": "basic",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Vibrance"
+    },
+    "WhiteBalance": {
+      "sdk": "WhiteBalance",
+      "type": "enum",
+      "group": "whitebalance",
+      "tier": "v1",
+      "range": null,
+      "display": "White Balance"
+    },
+    "Whites2012": {
+      "sdk": "Whites2012",
+      "type": "number",
+      "group": "basic",
+      "tier": "v1",
+      "range": [
+        -100,
+        100
+      ],
+      "display": "Whites"
+    }
+  },
+  "v1_fields": [
+    "Blacks2012",
+    "Clarity2012",
+    "ColorGradeBlending",
+    "ColorGradeGlobalHue",
+    "ColorGradeGlobalLum",
+    "ColorGradeGlobalSat",
+    "ColorGradeHighlightLum",
+    "ColorGradeMidtoneHue",
+    "ColorGradeMidtoneLum",
+    "ColorGradeMidtoneSat",
+    "ColorGradeShadowLum",
+    "Contrast2012",
+    "ConvertToGrayscale",
+    "Dehaze",
+    "Exposure2012",
+    "Highlights2012",
+    "HueAdjustmentAqua",
+    "HueAdjustmentBlue",
+    "HueAdjustmentGreen",
+    "HueAdjustmentMagenta",
+    "HueAdjustmentOrange",
+    "HueAdjustmentPurple",
+    "HueAdjustmentRed",
+    "HueAdjustmentYellow",
+    "LuminanceAdjustmentAqua",
+    "LuminanceAdjustmentBlue",
+    "LuminanceAdjustmentGreen",
+    "LuminanceAdjustmentMagenta",
+    "LuminanceAdjustmentOrange",
+    "LuminanceAdjustmentPurple",
+    "LuminanceAdjustmentRed",
+    "LuminanceAdjustmentYellow",
+    "ParametricDarks",
+    "ParametricHighlightSplit",
+    "ParametricHighlights",
+    "ParametricLights",
+    "ParametricMidtoneSplit",
+    "ParametricShadowSplit",
+    "ParametricShadows",
+    "Saturation",
+    "SaturationAdjustmentAqua",
+    "SaturationAdjustmentBlue",
+    "SaturationAdjustmentGreen",
+    "SaturationAdjustmentMagenta",
+    "SaturationAdjustmentOrange",
+    "SaturationAdjustmentPurple",
+    "SaturationAdjustmentRed",
+    "SaturationAdjustmentYellow",
+    "Shadows2012",
+    "SplitToningBalance",
+    "SplitToningHighlightHue",
+    "SplitToningHighlightSaturation",
+    "SplitToningShadowHue",
+    "SplitToningShadowSaturation",
+    "Temperature",
+    "Texture",
+    "Tint",
+    "ToneCurveName2012",
+    "ToneCurvePV2012",
+    "ToneCurvePV2012Blue",
+    "ToneCurvePV2012Green",
+    "ToneCurvePV2012Red",
+    "Vibrance",
+    "WhiteBalance",
+    "Whites2012"
+  ],
+  "aliases": {
+    "ColorGradeGlobalSaturation": "ColorGradeGlobalSat",
+    "ColorGradeHighlightHue": "SplitToningHighlightHue",
+    "ColorGradeHighlightSat": "SplitToningHighlightSaturation",
+    "ColorGradeHighlightSaturation": "SplitToningHighlightSaturation",
+    "ColorGradeMidtoneSaturation": "ColorGradeMidtoneSat",
+    "ColorGradeShadowHue": "SplitToningShadowHue",
+    "ColorGradeShadowSat": "SplitToningShadowSaturation",
+    "ColorGradeShadowSaturation": "SplitToningShadowSaturation"
+  }
+}

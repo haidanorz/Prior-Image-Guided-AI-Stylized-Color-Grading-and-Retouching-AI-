@@ -1,0 +1,3 @@
+# MCP 工具层依赖（仅在宿主里以 MCP server 方式运行时需要）
+-r requirements.txt
+mcp>=1.0

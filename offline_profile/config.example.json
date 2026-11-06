@@ -1,0 +1,20 @@
+{
+  "core_top_score": 0.65,
+  "core_margin": 0.15,
+  "associate_top_score": 0.45,
+  "full_bucket_min_core": 8,
+  "provisional_bucket_min_core": 5,
+  "parameter_min_confidence": 0.30,
+  "holdout_ratio": 0.20,
+  "split_seed": 0,
+  "analysis_max_retries": 2,
+  "analysis_coverage_min": 0.90,
+  "analysis_min_mean_hypotheses": 6.0,
+  "analysis_min_key_coverage": 0.65,
+  "brightness_dark_max_p50": 0.25,
+  "brightness_bright_min_p50": 0.55,
+  "adapter": "mock",
+  "overwrite": false,
+  "experiment_feedback_enabled": false,
+  "experiment_skill_library_enabled": false
+}

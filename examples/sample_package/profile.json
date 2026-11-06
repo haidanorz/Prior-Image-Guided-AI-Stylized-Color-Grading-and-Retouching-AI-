@@ -1,0 +1,290 @@
+{
+  "profile_schema_version": "1.0.0",
+  "profile_shape": "bucket_primary",
+  "profile_id": "profile_sample_demo",
+  "build_id": "sample_demo",
+  "status": "draft",
+  "style_name": "示例风格（合成数据）",
+  "validation_scope": "analysis_consistency",
+  "application_ready": false,
+  "input_fingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+  "config_hash": "sample_config_hash",
+  "response_set_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+  "aggregate_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+  "buckets": {
+    "natural_landscape": {
+      "bucket_status": "full",
+      "n_core": 12,
+      "n_train": 12,
+      "n_holdout": 0,
+      "deltas": {
+        "highlights": {
+          "delta": -2.0,
+          "unit": "index"
+        },
+        "vibrance": {
+          "delta": 3.0,
+          "unit": "index"
+        }
+      },
+      "unresolved": []
+    },
+    "urban_architecture": {
+      "bucket_status": "full",
+      "n_core": 10,
+      "n_train": 10,
+      "n_holdout": 0,
+      "deltas": {
+        "highlights": {
+          "delta": -2.0,
+          "unit": "index"
+        },
+        "vibrance": {
+          "delta": 3.0,
+          "unit": "index"
+        }
+      },
+      "unresolved": []
+    }
+  },
+  "bucket_parameters": {
+    "natural_landscape": {
+      "exposure_ev": {
+        "value": 0.0,
+        "kind": "numeric",
+        "unit": "EV",
+        "p25": -0.2,
+        "p75": 0.2,
+        "span": 0.4,
+        "n": 12,
+        "support": 1.0,
+        "consistency": 0.72,
+        "status": "published",
+        "apply_policy": "anchor"
+      },
+      "contrast": {
+        "value": 6.0,
+        "kind": "numeric",
+        "unit": "index",
+        "p25": 1.0,
+        "p75": 11.0,
+        "span": 10.0,
+        "n": 12,
+        "support": 1.0,
+        "consistency": 0.64,
+        "status": "published",
+        "apply_policy": "anchor"
+      },
+      "highlights": {
+        "value": -8.0,
+        "kind": "numeric",
+        "unit": "index",
+        "p25": -12.0,
+        "p75": -4.0,
+        "span": 8.0,
+        "n": 12,
+        "support": 1.0,
+        "consistency": 0.81,
+        "status": "published",
+        "apply_policy": "anchor"
+      },
+      "shadows": {
+        "value": 8.0,
+        "kind": "numeric",
+        "unit": "index",
+        "p25": 3.0,
+        "p75": 13.0,
+        "span": 10.0,
+        "n": 12,
+        "support": 1.0,
+        "consistency": 0.66,
+        "status": "published",
+        "apply_policy": "anchor"
+      },
+      "vibrance": {
+        "value": 14.0,
+        "kind": "numeric",
+        "unit": "index",
+        "p25": 4.0,
+        "p75": 24.0,
+        "span": 20.0,
+        "n": 12,
+        "support": 1.0,
+        "consistency": 0.58,
+        "status": "published",
+        "apply_policy": "anchor"
+      },
+      "saturation": {
+        "value": 4.0,
+        "kind": "numeric",
+        "unit": "index",
+        "p25": 1.0,
+        "p75": 7.0,
+        "span": 6.0,
+        "n": 12,
+        "support": 1.0,
+        "consistency": 0.62,
+        "status": "published",
+        "apply_policy": "anchor"
+      },
+      "clarity": {
+        "value": 9.0,
+        "kind": "numeric",
+        "unit": "index",
+        "p25": 1.5,
+        "p75": 16.5,
+        "span": 15.0,
+        "n": 12,
+        "support": 1.0,
+        "consistency": 0.55,
+        "status": "published",
+        "apply_policy": "anchor"
+      },
+      "temperature_shift": {
+        "value": 2.0,
+        "kind": "numeric",
+        "unit": "index",
+        "p25": -0.5,
+        "p75": 4.5,
+        "span": 5.0,
+        "n": 12,
+        "support": 1.0,
+        "consistency": 0.61,
+        "status": "published",
+        "apply_policy": "anchor"
+      },
+      "sharpening_amount": {
+        "value": 32.0,
+        "kind": "numeric",
+        "unit": "index",
+        "p25": 19.0,
+        "p75": 45.0,
+        "span": 26.0,
+        "n": 12,
+        "support": 1.0,
+        "consistency": 0.31,
+        "status": "wide_dispersion",
+        "apply_policy": "prior_only"
+      }
+    },
+    "urban_architecture": {
+      "exposure_ev": {
+        "value": 0.0,
+        "kind": "numeric",
+        "unit": "EV",
+        "p25": -0.15,
+        "p75": 0.15,
+        "span": 0.3,
+        "n": 10,
+        "support": 1.0,
+        "consistency": 0.75,
+        "status": "published",
+        "apply_policy": "anchor"
+      },
+      "contrast": {
+        "value": 12.0,
+        "kind": "numeric",
+        "unit": "index",
+        "p25": 6.0,
+        "p75": 18.0,
+        "span": 12.0,
+        "n": 10,
+        "support": 1.0,
+        "consistency": 0.7,
+        "status": "published",
+        "apply_policy": "anchor"
+      },
+      "highlights": {
+        "value": -12.0,
+        "kind": "numeric",
+        "unit": "index",
+        "p25": -17.0,
+        "p75": -7.0,
+        "span": 10.0,
+        "n": 10,
+        "support": 1.0,
+        "consistency": 0.78,
+        "status": "published",
+        "apply_policy": "anchor"
+      },
+      "shadows": {
+        "value": -4.0,
+        "kind": "numeric",
+        "unit": "index",
+        "p25": -8.0,
+        "p75": 0.0,
+        "span": 8.0,
+        "n": 10,
+        "support": 1.0,
+        "consistency": 0.6,
+        "status": "published",
+        "apply_policy": "anchor"
+      },
+      "vibrance": {
+        "value": 9.0,
+        "kind": "numeric",
+        "unit": "index",
+        "p25": 3.0,
+        "p75": 15.0,
+        "span": 12.0,
+        "n": 10,
+        "support": 1.0,
+        "consistency": 0.57,
+        "status": "published",
+        "apply_policy": "anchor"
+      },
+      "saturation": {
+        "value": -2.0,
+        "kind": "numeric",
+        "unit": "index",
+        "p25": -4.0,
+        "p75": 0.0,
+        "span": 4.0,
+        "n": 10,
+        "support": 1.0,
+        "consistency": 0.63,
+        "status": "published",
+        "apply_policy": "anchor"
+      },
+      "clarity": {
+        "value": 15.0,
+        "kind": "numeric",
+        "unit": "index",
+        "p25": 8.0,
+        "p75": 22.0,
+        "span": 14.0,
+        "n": 10,
+        "support": 1.0,
+        "consistency": 0.69,
+        "status": "published",
+        "apply_policy": "anchor"
+      },
+      "dehaze": {
+        "value": 4.0,
+        "kind": "numeric",
+        "unit": "index",
+        "p25": 0.0,
+        "p75": 8.0,
+        "span": 8.0,
+        "n": 10,
+        "support": 1.0,
+        "consistency": 0.52,
+        "status": "published",
+        "apply_policy": "anchor"
+      },
+      "sharpening_amount": {
+        "value": 38.0,
+        "kind": "numeric",
+        "unit": "index",
+        "p25": 23.0,
+        "p75": 53.0,
+        "span": 30.0,
+        "n": 10,
+        "support": 1.0,
+        "consistency": 0.29,
+        "status": "wide_dispersion",
+        "apply_policy": "prior_only"
+      }
+    }
+  }
+}

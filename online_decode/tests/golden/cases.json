@@ -1,0 +1,322 @@
+{
+  "golden_schema_version": "1.0.0",
+  "note": "由 record_golden 生成；改动状态机、选轮或守卫后先确认差异再重录",
+  "package_relative_path": "examples/sample_package",
+  "cases": [
+    {
+      "name": "two_rounds_goal_met",
+      "max_rounds": 3,
+      "port_flags": {},
+      "scene": {
+        "scene_observation": {
+          "primary_candidates": [
+            {
+              "label": "natural_landscape",
+              "score": 0.85
+            },
+            {
+              "label": "urban_architecture",
+              "score": 0.1
+            }
+          ],
+          "lighting": "soft",
+          "brightness": "normal",
+          "backlit": false
+        }
+      },
+      "brief": {
+        "image_id": "target",
+        "scene_observation": {
+          "primary_candidates": [
+            {
+              "label": "natural_landscape",
+              "score": 0.85
+            },
+            {
+              "label": "urban_architecture",
+              "score": 0.1
+            }
+          ],
+          "lighting": "soft",
+          "brightness": "normal",
+          "backlit": false
+        },
+        "branch_rationale": "干旱地貌支系：暖色层理配灰白天光，适用柔和漫射光的影调语言",
+        "hit_cautions": [
+          "不能用单一色调概括全桶"
+        ],
+        "preserve": [
+          "天空灰蓝层次",
+          "远山雾感"
+        ],
+        "goals": [
+          "保留天空层次",
+          "前景暗部不死黑",
+          "整体暖而不艳"
+        ],
+        "avoid": [
+          "高光溢出",
+          "整体偏绿"
+        ],
+        "target_corrections": [],
+        "initial_xmp": "<?xpacket begin=\"﻿\" id=\"W5M0MpCehiHzreSzNTczkc9d\"?>\n<x:xmpmeta xmlns:x=\"adobe:ns:meta/\" x:xmptk=\"prior-color-decode\">\n <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n  <rdf:Description rdf:about=\"\"\n    xmlns:crs=\"http://ns.adobe.com/camera-raw-settings/1.0/\"\n    crs:PresetType=\"Normal\"\n    crs:Version=\"15.0\"\n    crs:HasSettings=\"True\"\n    crs:Highlights2012=\"-10\"\n  >\n   <crs:Name>\n    <rdf:Alt>\n     <rdf:li xml:lang=\"x-default\">Online decode round</rdf:li>\n    </rdf:Alt>\n   </crs:Name>\n   <crs:Group>\n    <rdf:Alt>\n     <rdf:li xml:lang=\"x-default\">Online Decode</rdf:li>\n    </rdf:Alt>\n   </crs:Group>\n  </rdf:Description>\n </rdf:RDF>\n</x:xmpmeta>\n<?xpacket end=\"w\"?>\n",
+        "param_notes": {
+          "Highlights2012": {
+            "evidence_level": "runtime_reference",
+            "ref": "fingerprint.global.highlights",
+            "reason": "全局参考值"
+          }
+        },
+        "uncertainties": []
+      },
+      "plans": [
+        {
+          "xmp": "<?xpacket begin=\"﻿\" id=\"W5M0MpCehiHzreSzNTczkc9d\"?>\n<x:xmpmeta xmlns:x=\"adobe:ns:meta/\" x:xmptk=\"prior-color-decode\">\n <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n  <rdf:Description rdf:about=\"\"\n    xmlns:crs=\"http://ns.adobe.com/camera-raw-settings/1.0/\"\n    crs:PresetType=\"Normal\"\n    crs:Version=\"15.0\"\n    crs:HasSettings=\"True\"\n    crs:Highlights2012=\"-11\"\n  >\n   <crs:Name>\n    <rdf:Alt>\n     <rdf:li xml:lang=\"x-default\">Online decode round</rdf:li>\n    </rdf:Alt>\n   </crs:Name>\n   <crs:Group>\n    <rdf:Alt>\n     <rdf:li xml:lang=\"x-default\">Online Decode</rdf:li>\n    </rdf:Alt>\n   </crs:Group>\n  </rdf:Description>\n </rdf:RDF>\n</x:xmpmeta>\n<?xpacket end=\"w\"?>\n",
+          "param_notes": {
+            "Highlights2012": {
+              "evidence_level": "runtime_reference",
+              "ref": "fingerprint.global.highlights",
+              "reason": "按参考微调"
+            }
+          },
+          "expected_effects": [
+            "中间调更通透"
+          ]
+        }
+      ],
+      "evaluations": [
+        {
+          "style_alignment": {
+            "verdict": "partially_met",
+            "notes": "影调方向符合 brief"
+          },
+          "branch_alignment": {
+            "verdict": "met",
+            "notes": "仍属柔和漫射光语言"
+          },
+          "technical_quality": {
+            "verdict": "met",
+            "defects": []
+          },
+          "content_preservation": {
+            "verdict": "met",
+            "notes": "天空与远山保留"
+          },
+          "improvement": "better",
+          "decision": "continue",
+          "is_best_candidate": true,
+          "evidence": [
+            {
+              "anchor": "whole",
+              "observation": "天空层次保留，暗部没有糊成一片"
+            }
+          ],
+          "next_adjustment": {},
+          "preserve_violations": [],
+          "caution_violations": []
+        },
+        {
+          "style_alignment": {
+            "verdict": "met",
+            "notes": "影调方向符合 brief"
+          },
+          "branch_alignment": {
+            "verdict": "met",
+            "notes": "仍属柔和漫射光语言"
+          },
+          "technical_quality": {
+            "verdict": "met",
+            "defects": []
+          },
+          "content_preservation": {
+            "verdict": "met",
+            "notes": "天空与远山保留"
+          },
+          "improvement": "better",
+          "decision": "stop_and_select",
+          "is_best_candidate": true,
+          "evidence": [
+            {
+              "anchor": "whole",
+              "observation": "天空层次保留，暗部没有糊成一片"
+            }
+          ],
+          "next_adjustment": {},
+          "preserve_violations": [],
+          "caution_violations": []
+        }
+      ],
+      "expected": {
+        "ok": true,
+        "status": "completed",
+        "max_rounds": 3,
+        "rounds_used": 2,
+        "stop_reason": "goal_met",
+        "best_round": 2,
+        "scene_bucket": "natural_landscape",
+        "scene_level": "core",
+        "pilot_only": true,
+        "rounds": [
+          {
+            "round": 1,
+            "ok": true,
+            "improvement": "better",
+            "written": {
+              "Highlights2012": -10
+            },
+            "settings_hash": "sha256:1b6fd10b6a89291c0630108bf25b114117cb30c24ee39d01ae764dc985d30612",
+            "render_hash": "sha256:1b6fd10b6a89291c0630108bf25b114117cb30c24ee39d01ae764dc985d30612",
+            "model_input_source": "xmp",
+            "error_code": null
+          },
+          {
+            "round": 2,
+            "ok": true,
+            "improvement": "better",
+            "written": {
+              "Highlights2012": -11
+            },
+            "settings_hash": "sha256:15c32fce002c1cf4617f2cfb48cba9d3d8e197d9b6e7bb3927757e0e54dd98a5",
+            "render_hash": "sha256:15c32fce002c1cf4617f2cfb48cba9d3d8e197d9b6e7bb3927757e0e54dd98a5",
+            "model_input_source": "xmp",
+            "error_code": null
+          }
+        ],
+        "final_hash_equals_best": true,
+        "error_codes": []
+      }
+    },
+    {
+      "name": "render_hash_drift_voids_round",
+      "max_rounds": 2,
+      "port_flags": {
+        "render_hash_drift": true
+      },
+      "scene": {
+        "scene_observation": {
+          "primary_candidates": [
+            {
+              "label": "natural_landscape",
+              "score": 0.85
+            },
+            {
+              "label": "urban_architecture",
+              "score": 0.1
+            }
+          ],
+          "lighting": "soft",
+          "brightness": "normal",
+          "backlit": false
+        }
+      },
+      "brief": {
+        "image_id": "target",
+        "scene_observation": {
+          "primary_candidates": [
+            {
+              "label": "natural_landscape",
+              "score": 0.85
+            },
+            {
+              "label": "urban_architecture",
+              "score": 0.1
+            }
+          ],
+          "lighting": "soft",
+          "brightness": "normal",
+          "backlit": false
+        },
+        "branch_rationale": "干旱地貌支系：暖色层理配灰白天光，适用柔和漫射光的影调语言",
+        "hit_cautions": [
+          "不能用单一色调概括全桶"
+        ],
+        "preserve": [
+          "天空灰蓝层次",
+          "远山雾感"
+        ],
+        "goals": [
+          "保留天空层次",
+          "前景暗部不死黑",
+          "整体暖而不艳"
+        ],
+        "avoid": [
+          "高光溢出",
+          "整体偏绿"
+        ],
+        "target_corrections": [],
+        "initial_xmp": "<?xpacket begin=\"﻿\" id=\"W5M0MpCehiHzreSzNTczkc9d\"?>\n<x:xmpmeta xmlns:x=\"adobe:ns:meta/\" x:xmptk=\"prior-color-decode\">\n <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n  <rdf:Description rdf:about=\"\"\n    xmlns:crs=\"http://ns.adobe.com/camera-raw-settings/1.0/\"\n    crs:PresetType=\"Normal\"\n    crs:Version=\"15.0\"\n    crs:HasSettings=\"True\"\n    crs:Highlights2012=\"-10\"\n  >\n   <crs:Name>\n    <rdf:Alt>\n     <rdf:li xml:lang=\"x-default\">Online decode round</rdf:li>\n    </rdf:Alt>\n   </crs:Name>\n   <crs:Group>\n    <rdf:Alt>\n     <rdf:li xml:lang=\"x-default\">Online Decode</rdf:li>\n    </rdf:Alt>\n   </crs:Group>\n  </rdf:Description>\n </rdf:RDF>\n</x:xmpmeta>\n<?xpacket end=\"w\"?>\n",
+        "param_notes": {
+          "Highlights2012": {
+            "evidence_level": "runtime_reference",
+            "ref": "fingerprint.global.highlights",
+            "reason": "全局参考值"
+          }
+        },
+        "uncertainties": []
+      },
+      "plans": [],
+      "evaluations": [
+        {
+          "style_alignment": {
+            "verdict": "met",
+            "notes": "影调方向符合 brief"
+          },
+          "branch_alignment": {
+            "verdict": "met",
+            "notes": "仍属柔和漫射光语言"
+          },
+          "technical_quality": {
+            "verdict": "met",
+            "defects": []
+          },
+          "content_preservation": {
+            "verdict": "met",
+            "notes": "天空与远山保留"
+          },
+          "improvement": "better",
+          "decision": "stop_and_select",
+          "is_best_candidate": true,
+          "evidence": [
+            {
+              "anchor": "whole",
+              "observation": "天空层次保留，暗部没有糊成一片"
+            }
+          ],
+          "next_adjustment": {},
+          "preserve_violations": [],
+          "caution_violations": []
+        }
+      ],
+      "expected": {
+        "ok": false,
+        "status": "failed",
+        "max_rounds": 2,
+        "rounds_used": 1,
+        "stop_reason": "interface_failure",
+        "best_round": null,
+        "scene_bucket": "natural_landscape",
+        "scene_level": "core",
+        "pilot_only": true,
+        "rounds": [
+          {
+            "round": 1,
+            "ok": false,
+            "improvement": null,
+            "written": {
+              "Highlights2012": -10
+            },
+            "settings_hash": "sha256:1b6fd10b6a89291c0630108bf25b114117cb30c24ee39d01ae764dc985d30612",
+            "render_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "model_input_source": "xmp",
+            "error_code": "RENDER_HASH_MISMATCH"
+          }
+        ],
+        "final_hash_equals_best": false,
+        "error_codes": [
+          "RENDER_HASH_MISMATCH",
+          "NO_ROUND_COMPLETED"
+        ]
+      }
+    }
+  ]
+}

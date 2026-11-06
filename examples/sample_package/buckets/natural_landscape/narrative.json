@@ -1,0 +1,29 @@
+{
+  "narrative_schema_version": "1.0.0",
+  "bucket_id": "natural_landscape",
+  "status": "draft",
+  "language": "zh",
+  "summary": "示例桶：自然风景。整体走低对比、收敛高光、局部提饱和的路子，只作演示用。",
+  "mood": "平静、开阔。",
+  "subject_context": "山脊、水面、草木等常见自然主体。",
+  "lighting_context": "以柔和侧光与阴天散射光为主，高光不过曝。",
+  "color_language": "中性偏暖的土色与克制的蓝绿并置。",
+  "composition_tendencies": "水平线稳定，前景留出引导线。",
+  "mood_keywords": [
+    "平静",
+    "开阔",
+    "克制"
+  ],
+  "recurring_motifs": [
+    "压住的高光",
+    "留细节的暗部"
+  ],
+  "exceptions": [
+    "强逆光剪影不适用本条叙事"
+  ],
+  "cautions": [
+    "不要对整桶统一加暖",
+    "示例数据，不可当真实风格依据"
+  ],
+  "evidence_refs": []
+}

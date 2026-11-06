@@ -1,0 +1,45 @@
+{
+  "taxonomy_version": "scene_v1",
+  "description": "首版场景分类体系。新增或改名必须提升 taxonomy_version 并重新分桶。",
+  "labels": [
+    {
+      "label": "portrait",
+      "description": "A person or a small group is the primary subject; faces or bodies dominate the frame."
+    },
+    {
+      "label": "natural_landscape",
+      "description": "Outdoor natural scenery dominates: mountains, water, forest, sky, fields, coastline."
+    },
+    {
+      "label": "urban_architecture",
+      "description": "Buildings, structures, interiors of public architecture, or city geometry dominate."
+    },
+    {
+      "label": "street_documentary",
+      "description": "Candid everyday urban life, pedestrians, markets, transient observed moments."
+    },
+    {
+      "label": "indoor",
+      "description": "Domestic or enclosed interior scenes where the room itself is the subject."
+    },
+    {
+      "label": "still_life",
+      "description": "Arranged objects, food, products or tabletop compositions."
+    },
+    {
+      "label": "other",
+      "description": "None of the registered labels fit, or the scene is ambiguous. Never forms a formal style bucket."
+    }
+  ],
+  "lighting_values": [
+    "daylight",
+    "golden_hour",
+    "overcast",
+    "artificial",
+    "night",
+    "mixed",
+    "unknown"
+  ],
+  "brightness_values": ["bright", "mid", "dark"],
+  "backlit_values": [true, false, "unknown"]
+}

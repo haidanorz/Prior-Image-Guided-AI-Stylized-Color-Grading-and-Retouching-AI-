@@ -1,0 +1,123 @@
+{
+  "profile_schema_version": "1.0.0",
+  "profile_type": "bucket_style",
+  "profile_id": "bucket_natural_landscape",
+  "bucket_id": "natural_landscape",
+  "taxonomy_version": "scene_v1",
+  "status": "draft",
+  "bucket_status": "full",
+  "n_core": 12,
+  "n_train": 12,
+  "n_holdout": 0,
+  "profile_hash": "abcd20382c412b2c7cd89562b2428d80f8c96ab6c250e8747f59afeb2f90cb60",
+  "parameters": {
+    "exposure_ev": {
+      "value": 0.0,
+      "kind": "numeric",
+      "unit": "EV",
+      "p25": -0.2,
+      "p75": 0.2,
+      "span": 0.4,
+      "n": 12,
+      "support": 1.0,
+      "consistency": 0.72,
+      "status": "published",
+      "apply_policy": "anchor"
+    },
+    "contrast": {
+      "value": 6.0,
+      "kind": "numeric",
+      "unit": "index",
+      "p25": 1.0,
+      "p75": 11.0,
+      "span": 10.0,
+      "n": 12,
+      "support": 1.0,
+      "consistency": 0.64,
+      "status": "published",
+      "apply_policy": "anchor"
+    },
+    "highlights": {
+      "value": -8.0,
+      "kind": "numeric",
+      "unit": "index",
+      "p25": -12.0,
+      "p75": -4.0,
+      "span": 8.0,
+      "n": 12,
+      "support": 1.0,
+      "consistency": 0.81,
+      "status": "published",
+      "apply_policy": "anchor"
+    },
+    "shadows": {
+      "value": 8.0,
+      "kind": "numeric",
+      "unit": "index",
+      "p25": 3.0,
+      "p75": 13.0,
+      "span": 10.0,
+      "n": 12,
+      "support": 1.0,
+      "consistency": 0.66,
+      "status": "published",
+      "apply_policy": "anchor"
+    },
+    "vibrance": {
+      "value": 14.0,
+      "kind": "numeric",
+      "unit": "index",
+      "p25": 4.0,
+      "p75": 24.0,
+      "span": 20.0,
+      "n": 12,
+      "support": 1.0,
+      "consistency": 0.58,
+      "status": "published",
+      "apply_policy": "anchor"
+    },
+    "saturation": {
+      "value": 4.0,
+      "kind": "numeric",
+      "unit": "index",
+      "p25": 1.0,
+      "p75": 7.0,
+      "span": 6.0,
+      "n": 12,
+      "support": 1.0,
+      "consistency": 0.62,
+      "status": "published",
+      "apply_policy": "anchor"
+    },
+    "clarity": {
+      "value": 9.0,
+      "kind": "numeric",
+      "unit": "index",
+      "p25": 1.5,
+      "p75": 16.5,
+      "span": 15.0,
+      "n": 12,
+      "support": 1.0,
+      "consistency": 0.55,
+      "status": "published",
+      "apply_policy": "anchor"
+    },
+    "temperature_shift": {
+      "value": 2.0,
+      "kind": "numeric",
+      "unit": "index",
+      "p25": -0.5,
+      "p75": 4.5,
+      "span": 5.0,
+      "n": 12,
+      "support": 1.0,
+      "consistency": 0.61,
+      "status": "published",
+      "apply_policy": "anchor"
+    }
+  },
+  "narrative_ref": {
+    "file": "buckets/natural_landscape/narrative.json",
+    "narrative_hash": "f83c5150feb7f4127dfc1d4cd4b241c47eaa2b9d4b7231b38aee96075e73b452"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "online_decode/model_evaluation.json",
+  "title": "模型评价（看过预览之后）",
+  "type": "object",
+  "required": ["style_alignment", "branch_alignment", "technical_quality",
+               "content_preservation", "improvement", "decision", "evidence"],
+  "properties": {
+    "style_alignment": {"$ref": "#/definitions/verdict"},
+    "branch_alignment": {"$ref": "#/definitions/verdict"},
+    "technical_quality": {"$ref": "#/definitions/verdict"},
+    "content_preservation": {"$ref": "#/definitions/verdict"},
+    "improvement": {"enum": ["better", "same", "worse", "uncertain"]},
+    "decision": {"enum": ["continue", "stop_and_select", "restore_previous_best", "abort"]},
+    "is_best_candidate": {"type": "boolean"},
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["anchor", "observation"],
+        "properties": {
+          "anchor": {
+            "enum": ["upper_left", "upper_center", "upper_right",
+                     "middle_left", "center", "middle_right",
+                     "lower_left", "lower_center", "lower_right",
+                     "sky", "subject", "shadow", "highlight", "whole"]
+          },
+          "metric": {"type": "string"},
+          "value": {"type": "number"},
+          "observation": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": true
+      }
+    },
+    "next_adjustment": {},
+    "preserve_violations": {"type": "array"},
+    "caution_violations": {"type": "array"}
+  },
+  "definitions": {
+    "verdict": {
+      "type": "object",
+      "required": ["verdict"],
+      "properties": {
+        "verdict": {"enum": ["met", "partially_met", "not_met", "n/a"]},
+        "notes": {"type": "string"},
+        "defects": {"type": "array"}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

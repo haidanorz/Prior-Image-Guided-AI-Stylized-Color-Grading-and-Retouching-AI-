@@ -1,0 +1,123 @@
+{
+  "profile_schema_version": "1.0.0",
+  "profile_type": "bucket_style",
+  "profile_id": "bucket_urban_architecture",
+  "bucket_id": "urban_architecture",
+  "taxonomy_version": "scene_v1",
+  "status": "draft",
+  "bucket_status": "full",
+  "n_core": 10,
+  "n_train": 10,
+  "n_holdout": 0,
+  "profile_hash": "ea5614d6931866eb249c998f32791f4395b20bcf891252ddaaa416cf5140ae3b",
+  "parameters": {
+    "exposure_ev": {
+      "value": 0.0,
+      "kind": "numeric",
+      "unit": "EV",
+      "p25": -0.15,
+      "p75": 0.15,
+      "span": 0.3,
+      "n": 10,
+      "support": 1.0,
+      "consistency": 0.75,
+      "status": "published",
+      "apply_policy": "anchor"
+    },
+    "contrast": {
+      "value": 12.0,
+      "kind": "numeric",
+      "unit": "index",
+      "p25": 6.0,
+      "p75": 18.0,
+      "span": 12.0,
+      "n": 10,
+      "support": 1.0,
+      "consistency": 0.7,
+      "status": "published",
+      "apply_policy": "anchor"
+    },
+    "highlights": {
+      "value": -12.0,
+      "kind": "numeric",
+      "unit": "index",
+      "p25": -17.0,
+      "p75": -7.0,
+      "span": 10.0,
+      "n": 10,
+      "support": 1.0,
+      "consistency": 0.78,
+      "status": "published",
+      "apply_policy": "anchor"
+    },
+    "shadows": {
+      "value": -4.0,
+      "kind": "numeric",
+      "unit": "index",
+      "p25": -8.0,
+      "p75": 0.0,
+      "span": 8.0,
+      "n": 10,
+      "support": 1.0,
+      "consistency": 0.6,
+      "status": "published",
+      "apply_policy": "anchor"
+    },
+    "vibrance": {
+      "value": 9.0,
+      "kind": "numeric",
+      "unit": "index",
+      "p25": 3.0,
+      "p75": 15.0,
+      "span": 12.0,
+      "n": 10,
+      "support": 1.0,
+      "consistency": 0.57,
+      "status": "published",
+      "apply_policy": "anchor"
+    },
+    "saturation": {
+      "value": -2.0,
+      "kind": "numeric",
+      "unit": "index",
+      "p25": -4.0,
+      "p75": 0.0,
+      "span": 4.0,
+      "n": 10,
+      "support": 1.0,
+      "consistency": 0.63,
+      "status": "published",
+      "apply_policy": "anchor"
+    },
+    "clarity": {
+      "value": 15.0,
+      "kind": "numeric",
+      "unit": "index",
+      "p25": 8.0,
+      "p75": 22.0,
+      "span": 14.0,
+      "n": 10,
+      "support": 1.0,
+      "consistency": 0.69,
+      "status": "published",
+      "apply_policy": "anchor"
+    },
+    "dehaze": {
+      "value": 4.0,
+      "kind": "numeric",
+      "unit": "index",
+      "p25": 0.0,
+      "p75": 8.0,
+      "span": 8.0,
+      "n": 10,
+      "support": 1.0,
+      "consistency": 0.52,
+      "status": "published",
+      "apply_policy": "anchor"
+    }
+  },
+  "narrative_ref": {
+    "file": "buckets/urban_architecture/narrative.json",
+    "narrative_hash": "71896eed3009c914542a1b072532d1f780390d74f3aae47362a3538e147b4495"
+  }
+}

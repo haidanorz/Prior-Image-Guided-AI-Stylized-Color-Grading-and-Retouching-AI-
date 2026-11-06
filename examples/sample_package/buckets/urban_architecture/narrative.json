@@ -1,0 +1,29 @@
+{
+  "narrative_schema_version": "1.0.0",
+  "bucket_id": "urban_architecture",
+  "status": "draft",
+  "language": "zh",
+  "summary": "示例桶：城市建筑。强调线条清晰、结构对比与冷灰基调，只作演示用。",
+  "mood": "利落、冷静。",
+  "subject_context": "楼体、街面、玻璃与金属材质。",
+  "lighting_context": "硬光与大面积阴影并存，允许高反差。",
+  "color_language": "冷灰为主，少量暖色招牌作点缀。",
+  "composition_tendencies": "垂直线校正优先，强调几何秩序。",
+  "mood_keywords": [
+    "利落",
+    "冷静",
+    "秩序"
+  ],
+  "recurring_motifs": [
+    "清晰的边缘",
+    "冷灰中间调"
+  ],
+  "exceptions": [
+    "夜景霓虹另走一套暖色策略"
+  ],
+  "cautions": [
+    "不要给整桶加胶片颗粒",
+    "示例数据，不可当真实风格依据"
+  ],
+  "evidence_refs": []
+}

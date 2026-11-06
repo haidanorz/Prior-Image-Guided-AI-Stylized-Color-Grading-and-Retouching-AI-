@@ -1,0 +1,79 @@
+{
+  "signature_schema_version": "1.0.0",
+  "taxonomy_version": "scene_v1",
+  "registry_version": "1.0.0",
+  "evidence_scope": "cross_bucket",
+  "parameters": {
+    "highlights": {
+      "central": -9.0,
+      "unit": "index",
+      "kind": "numeric",
+      "cross_scene_invariant": true,
+      "evidence_buckets": [
+        "natural_landscape",
+        "urban_architecture"
+      ],
+      "sign_agreement": 1.0,
+      "weighted_consistency": 0.79
+    },
+    "vibrance": {
+      "central": 12.0,
+      "unit": "index",
+      "kind": "numeric",
+      "cross_scene_invariant": true,
+      "evidence_buckets": [
+        "natural_landscape",
+        "urban_architecture"
+      ],
+      "sign_agreement": 1.0,
+      "weighted_consistency": 0.57
+    },
+    "clarity": {
+      "central": 10.0,
+      "unit": "index",
+      "kind": "numeric",
+      "cross_scene_invariant": true,
+      "evidence_buckets": [
+        "natural_landscape",
+        "urban_architecture"
+      ],
+      "sign_agreement": 1.0,
+      "weighted_consistency": 0.56
+    },
+    "sharpening_amount": {
+      "central": 35.0,
+      "unit": "index",
+      "kind": "numeric",
+      "cross_scene_invariant": true,
+      "evidence_buckets": [
+        "natural_landscape",
+        "urban_architecture"
+      ],
+      "sign_agreement": 1.0,
+      "weighted_consistency": 0.3
+    }
+  },
+  "invariant_parameters": [
+    "highlights",
+    "vibrance",
+    "clarity",
+    "sharpening_amount"
+  ],
+  "scene_dependent_parameters": [],
+  "insufficient_evidence": [
+    {
+      "key": "exposure_ev",
+      "reason": "sample_data"
+    },
+    {
+      "key": "temperature_shift",
+      "reason": "sample_data"
+    },
+    {
+      "key": "vignette_amount",
+      "reason": "sample_data"
+    }
+  ],
+  "constraints": [],
+  "local_adjustment_policy": "no local adjustments"
+}

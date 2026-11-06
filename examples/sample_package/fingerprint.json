@@ -1,0 +1,383 @@
+{
+  "fingerprint_schema_version": "1.1.0",
+  "status": "draft",
+  "application_ready": false,
+  "validation_scope": "analysis_consistency",
+  "source": {
+    "build_id": "sample_demo",
+    "profile_id": "profile_sample_demo",
+    "aggregate_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+    "taxonomy_version": "scene_v1",
+    "registry_version": "1.0.0",
+    "input_fingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+    "config_hash": "sample_config_hash",
+    "response_set_hash": "1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "shape": "bucket_primary",
+  "global_role": "fallback",
+  "runtime_rule": "scene_primary -> bucket parameters (status=published); priors -> advisory only (wide dispersion), never a hard anchor; key missing in both bucket and global -> not_evaluable, skip the slider; unknown/exception scene -> global only; never blend two buckets",
+  "global": {
+    "highlights": {
+      "central": -9.0,
+      "unit": "index",
+      "kind": "numeric",
+      "cross_scene_invariant": true,
+      "evidence_buckets": [
+        "natural_landscape",
+        "urban_architecture"
+      ],
+      "sign_agreement": 1.0,
+      "weighted_consistency": 0.79
+    },
+    "vibrance": {
+      "central": 12.0,
+      "unit": "index",
+      "kind": "numeric",
+      "cross_scene_invariant": true,
+      "evidence_buckets": [
+        "natural_landscape",
+        "urban_architecture"
+      ],
+      "sign_agreement": 1.0,
+      "weighted_consistency": 0.57
+    },
+    "clarity": {
+      "central": 10.0,
+      "unit": "index",
+      "kind": "numeric",
+      "cross_scene_invariant": true,
+      "evidence_buckets": [
+        "natural_landscape",
+        "urban_architecture"
+      ],
+      "sign_agreement": 1.0,
+      "weighted_consistency": 0.56
+    },
+    "sharpening_amount": {
+      "central": 35.0,
+      "unit": "index",
+      "kind": "numeric",
+      "cross_scene_invariant": true,
+      "evidence_buckets": [
+        "natural_landscape",
+        "urban_architecture"
+      ],
+      "sign_agreement": 1.0,
+      "weighted_consistency": 0.3
+    }
+  },
+  "buckets": {
+    "natural_landscape": {
+      "bucket_status": "full",
+      "n_core": 12,
+      "n_train": 12,
+      "n_holdout": 0,
+      "parameters": {
+        "exposure_ev": {
+          "value": 0.0,
+          "unit": "EV",
+          "kind": "numeric",
+          "p25": -0.2,
+          "p75": 0.2,
+          "span": 0.4,
+          "n": 12,
+          "consistency": 0.72,
+          "status": "published",
+          "apply_policy": "anchor"
+        },
+        "contrast": {
+          "value": 6.0,
+          "unit": "index",
+          "kind": "numeric",
+          "p25": 1.0,
+          "p75": 11.0,
+          "span": 10.0,
+          "n": 12,
+          "consistency": 0.64,
+          "status": "published",
+          "apply_policy": "anchor"
+        },
+        "highlights": {
+          "value": -8.0,
+          "unit": "index",
+          "kind": "numeric",
+          "p25": -12.0,
+          "p75": -4.0,
+          "span": 8.0,
+          "n": 12,
+          "consistency": 0.81,
+          "status": "published",
+          "apply_policy": "anchor"
+        },
+        "shadows": {
+          "value": 8.0,
+          "unit": "index",
+          "kind": "numeric",
+          "p25": 3.0,
+          "p75": 13.0,
+          "span": 10.0,
+          "n": 12,
+          "consistency": 0.66,
+          "status": "published",
+          "apply_policy": "anchor"
+        },
+        "vibrance": {
+          "value": 14.0,
+          "unit": "index",
+          "kind": "numeric",
+          "p25": 4.0,
+          "p75": 24.0,
+          "span": 20.0,
+          "n": 12,
+          "consistency": 0.58,
+          "status": "published",
+          "apply_policy": "anchor"
+        },
+        "saturation": {
+          "value": 4.0,
+          "unit": "index",
+          "kind": "numeric",
+          "p25": 1.0,
+          "p75": 7.0,
+          "span": 6.0,
+          "n": 12,
+          "consistency": 0.62,
+          "status": "published",
+          "apply_policy": "anchor"
+        },
+        "clarity": {
+          "value": 9.0,
+          "unit": "index",
+          "kind": "numeric",
+          "p25": 1.5,
+          "p75": 16.5,
+          "span": 15.0,
+          "n": 12,
+          "consistency": 0.55,
+          "status": "published",
+          "apply_policy": "anchor"
+        },
+        "temperature_shift": {
+          "value": 2.0,
+          "unit": "index",
+          "kind": "numeric",
+          "p25": -0.5,
+          "p75": 4.5,
+          "span": 5.0,
+          "n": 12,
+          "consistency": 0.61,
+          "status": "published",
+          "apply_policy": "anchor"
+        }
+      },
+      "priors": {
+        "sharpening_amount": {
+          "value": 32.0,
+          "unit": "index",
+          "span": 26.0,
+          "p25": 19.0,
+          "p75": 45.0,
+          "n": 12,
+          "consistency": 0.31,
+          "cv_vs_pooled": null,
+          "status": "wide_dispersion",
+          "apply_policy": "prior_only"
+        }
+      },
+      "withheld_keys": [],
+      "not_evaluable": [
+        "whites",
+        "blacks",
+        "tint_shift",
+        "dehaze",
+        "grain_amount",
+        "vignette_amount",
+        "shadow_tint_hue",
+        "highlight_tint_hue"
+      ],
+      "delta": {
+        "highlights": -2.0,
+        "vibrance": 3.0
+      },
+      "delta_units": {
+        "highlights": "index",
+        "vibrance": "index"
+      },
+      "unresolved_keys": [],
+      "profile_hash": "abcd20382c412b2c7cd89562b2428d80f8c96ab6c250e8747f59afeb2f90cb60",
+      "narrative": {
+        "file": "buckets/natural_landscape/narrative.json",
+        "narrative_hash": "f83c5150feb7f4127dfc1d4cd4b241c47eaa2b9d4b7231b38aee96075e73b452"
+      }
+    },
+    "urban_architecture": {
+      "bucket_status": "full",
+      "n_core": 10,
+      "n_train": 10,
+      "n_holdout": 0,
+      "parameters": {
+        "exposure_ev": {
+          "value": 0.0,
+          "unit": "EV",
+          "kind": "numeric",
+          "p25": -0.15,
+          "p75": 0.15,
+          "span": 0.3,
+          "n": 10,
+          "consistency": 0.75,
+          "status": "published",
+          "apply_policy": "anchor"
+        },
+        "contrast": {
+          "value": 12.0,
+          "unit": "index",
+          "kind": "numeric",
+          "p25": 6.0,
+          "p75": 18.0,
+          "span": 12.0,
+          "n": 10,
+          "consistency": 0.7,
+          "status": "published",
+          "apply_policy": "anchor"
+        },
+        "highlights": {
+          "value": -12.0,
+          "unit": "index",
+          "kind": "numeric",
+          "p25": -17.0,
+          "p75": -7.0,
+          "span": 10.0,
+          "n": 10,
+          "consistency": 0.78,
+          "status": "published",
+          "apply_policy": "anchor"
+        },
+        "shadows": {
+          "value": -4.0,
+          "unit": "index",
+          "kind": "numeric",
+          "p25": -8.0,
+          "p75": 0.0,
+          "span": 8.0,
+          "n": 10,
+          "consistency": 0.6,
+          "status": "published",
+          "apply_policy": "anchor"
+        },
+        "vibrance": {
+          "value": 9.0,
+          "unit": "index",
+          "kind": "numeric",
+          "p25": 3.0,
+          "p75": 15.0,
+          "span": 12.0,
+          "n": 10,
+          "consistency": 0.57,
+          "status": "published",
+          "apply_policy": "anchor"
+        },
+        "saturation": {
+          "value": -2.0,
+          "unit": "index",
+          "kind": "numeric",
+          "p25": -4.0,
+          "p75": 0.0,
+          "span": 4.0,
+          "n": 10,
+          "consistency": 0.63,
+          "status": "published",
+          "apply_policy": "anchor"
+        },
+        "clarity": {
+          "value": 15.0,
+          "unit": "index",
+          "kind": "numeric",
+          "p25": 8.0,
+          "p75": 22.0,
+          "span": 14.0,
+          "n": 10,
+          "consistency": 0.69,
+          "status": "published",
+          "apply_policy": "anchor"
+        },
+        "dehaze": {
+          "value": 4.0,
+          "unit": "index",
+          "kind": "numeric",
+          "p25": 0.0,
+          "p75": 8.0,
+          "span": 8.0,
+          "n": 10,
+          "consistency": 0.52,
+          "status": "published",
+          "apply_policy": "anchor"
+        }
+      },
+      "priors": {
+        "sharpening_amount": {
+          "value": 38.0,
+          "unit": "index",
+          "span": 30.0,
+          "p25": 23.0,
+          "p75": 53.0,
+          "n": 10,
+          "consistency": 0.29,
+          "cv_vs_pooled": null,
+          "status": "wide_dispersion",
+          "apply_policy": "prior_only"
+        }
+      },
+      "withheld_keys": [],
+      "not_evaluable": [
+        "whites",
+        "blacks",
+        "temperature_shift",
+        "tint_shift",
+        "grain_amount",
+        "vignette_amount",
+        "shadow_tint_hue",
+        "highlight_tint_hue"
+      ],
+      "delta": {
+        "highlights": -2.0,
+        "vibrance": 3.0
+      },
+      "delta_units": {
+        "highlights": "index",
+        "vibrance": "index"
+      },
+      "unresolved_keys": [],
+      "profile_hash": "ea5614d6931866eb249c998f32791f4395b20bcf891252ddaaa416cf5140ae3b",
+      "narrative": {
+        "file": "buckets/urban_architecture/narrative.json",
+        "narrative_hash": "71896eed3009c914542a1b072532d1f780390d74f3aae47362a3538e147b4495"
+      }
+    }
+  },
+  "insufficient_evidence": [
+    {
+      "key": "exposure_ev",
+      "reason": "sample_data"
+    },
+    {
+      "key": "temperature_shift",
+      "reason": "sample_data"
+    },
+    {
+      "key": "vignette_amount",
+      "reason": "sample_data"
+    }
+  ],
+  "scene_dependent_parameters": [],
+  "invariant_parameters": [
+    "highlights",
+    "vibrance",
+    "clarity",
+    "sharpening_amount"
+  ],
+  "constraints": [],
+  "local_adjustment_policy": "no local adjustments",
+  "warning": "draft: bucket parameters are candidates, not validated for application",
+  "fingerprint_hash": "2c4d86fbbcd22f1974411dc2c69cca56a924a71aff05cb7d7a476e7496910540",
+  "fingerprint_id": "fp_2c4d86fbbcd22f19"
+}

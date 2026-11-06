@@ -1,0 +1,4 @@
+# 运行依赖（Windows / Python >= 3.10）
+# Pillow 需要带 littlecms（PyPI 官方 wheel 自带），否则非 sRGB ICC 的图片会明确报错。
+numpy>=1.24
+Pillow>=10.0

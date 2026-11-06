@@ -1,0 +1,22 @@
+{
+  "recursive": true,
+  "long_edge": 1600,
+  "jpeg_quality": 90,
+  "min_long_edge": 512,
+  "alpha_policy": "skip",
+  "missing_icc_policy": "assume_srgb_warn",
+  "luminance_bins": 64,
+  "hue_bins": 36,
+  "palette_colors": 5,
+  "near_black_threshold": "2/255",
+  "near_white_threshold": "253/255",
+  "near_duplicate_enabled": true,
+  "near_duplicate_hamming": 5,
+  "random_seed": 0,
+  "strip_preview_exif": true,
+  "overwrite": false,
+  "hue_min_chroma": 5.0,
+  "palette_max_sample_pixels": 50000,
+  "palette_max_iterations": 40,
+  "include_exif_summary": true
+}

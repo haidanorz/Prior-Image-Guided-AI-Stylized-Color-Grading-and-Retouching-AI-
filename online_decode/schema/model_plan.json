@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "online_decode/model_plan.json",
+  "title": "模型 plan 响应（每轮）",
+  "type": "object",
+  "properties": {
+    "xmp": {"type": ["string", "null"], "minLength": 1},
+    "xmp_path": {"type": ["string", "null"], "minLength": 1},
+    "adjustments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "value"],
+        "properties": {
+          "key": {"type": "string"},
+          "value": {},
+          "reason": {"type": "string"},
+          "ref": {"type": "string"},
+          "evidence_level": {
+            "enum": ["runtime_reference", "experimental_prior", "narrative_only",
+                     "planner_judgement", "target_adaptive", "unsupported"]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "param_notes": {"type": "object"},
+    "expected_effects": {"type": "array"},
+    "preserve_check": {"type": "object"},
+    "risks": {"type": "array"},
+    "stop": {"type": "boolean"}
+  },
+  "anyOf": [
+    {"required": ["xmp"]},
+    {"required": ["xmp_path"]},
+    {"required": ["adjustments"]},
+    {"required": ["stop"], "properties": {"stop": {"const": true}}}
+  ],
+  "additionalProperties": true
+}
