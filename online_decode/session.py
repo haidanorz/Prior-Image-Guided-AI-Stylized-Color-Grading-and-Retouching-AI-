@@ -30,6 +30,7 @@ from .fingerprint.resolver import (
 )
 from .params.fields import LOGICAL_TO_SDK, Fields
 from .params.guard import BAND_APPLY_MAX_ROUND, Guard
+from .params import knowledge as knowledge_mod
 from .params import xmp_parser
 from .ports import Driver, DriverError
 from .state import SessionState, make_session_id, new_session
@@ -54,6 +55,28 @@ class SessionController:
         self.guard = Guard(self.fields)
         self.state: SessionState | None = None
         self._pending_warnings: list[str] = []
+        self._knowledge: dict[str, Any] | None = None
+
+    def _knowledge_view(self) -> dict[str, Any] | None:
+        """参数语义知识的精简视图，整个会话只读一次。
+
+        关掉 `cfg.parameter_knowledge` 就完全不碰文件，行为与没有本层时一致。
+        文件缺失/结构坏是硬错误：既然配置要求注入，静默降级会让人以为注入了
+        其实没有，比直接失败更难排查。
+        哈希不符只记 warning 不拦——参考层不是数值事实来源，
+        有人手改过文件这件事进报告即可，不该让一张照片卡在这里。
+        """
+        if not self.cfg.parameter_knowledge:
+            return None
+        if self._knowledge is None:
+            view = knowledge_mod.build(self.cfg.parameter_knowledge_path)
+            if not view.get("hash_verified"):
+                self._pending_warnings.append(
+                    "参数知识文件哈希与声明不符（可能被手改过），已按当前内容注入；"
+                    "请重算 knowledge_hash 后再用"
+                )
+            self._knowledge = view
+        return self._knowledge
 
     # ------------------------------------------------------------------
     # 入口
@@ -440,8 +463,12 @@ class SessionController:
             "style_strength": strength,
         }
 
+        knowledge = self._knowledge_view()
+
         if scene is None:
-            request = base_request
+            request = dict(base_request)
+            if knowledge is not None:
+                request["parameter_knowledge"] = knowledge
             response = self._call_driver("brief", request)
             observation = response.get("scene_observation") or {}
             if not observation:
@@ -474,6 +501,8 @@ class SessionController:
                     for key in ("summary", "mood", "color_language", "cautions", "exceptions")
                 } if narrative else {},
             }
+            if knowledge is not None:
+                request["parameter_knowledge"] = knowledge
             response = self._call_driver("brief", request)
 
         brief = brief_mod.build(
@@ -492,6 +521,17 @@ class SessionController:
         from .fingerprint.resolver import priors as _priors
 
         brief["parameter_priors"] = _priors(pkg, decision.get("bucket_id"))
+        if knowledge is not None:
+            # 只记引用与哈希，不复制全文——与 narrative 的处理方式一致：
+            # 审计时按 full_ref 去读原文，避免同一套内容在报告里存两份后各说各话。
+            brief["parameter_knowledge"] = {
+                "knowledge_id": knowledge.get("knowledge_id"),
+                "layer": knowledge.get("layer"),
+                "scope": knowledge.get("scope"),
+                "knowledge_hash": knowledge.get("knowledge_hash"),
+                "hash_verified": knowledge.get("hash_verified"),
+                "full_ref": knowledge.get("full_ref"),
+            }
         bucket_id = decision.get("bucket_id")
         bucket = (pkg.fingerprint.get("buckets") or {}).get(bucket_id) or {}
         brief["decode"] = {
@@ -878,6 +918,12 @@ class SessionController:
             "limits": self._limits(),
             "user_intent": user_intent,
         }
+        # plan 分支的 decode_next 只透出 goals/avoid/history，不返回 brief 全文，
+        # 所以知识要单独挂一份——否则第 2 轮起模型就看不见了，
+        # 而第 2 轮恰恰才是逐项调参的地方。
+        knowledge = self._knowledge_view()
+        if knowledge is not None:
+            request["parameter_knowledge"] = knowledge
         return self._call_driver("plan", request)
 
     # ------------------------------------------------------------------

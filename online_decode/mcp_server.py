@@ -315,18 +315,26 @@ def decode_next(session_id: str, timeout: float = 20.0) -> str:
             packet["baseline_settings"] = req.get("baseline_settings")
             packet["user_intent"] = req.get("user_intent")
             packet["style_strength"] = req.get("style_strength")
+            if req.get("parameter_knowledge"):
+                packet["parameter_knowledge"] = req["parameter_knowledge"]
             packet["hint"] = ("看 original 图 + anchors（桶锚点）/priors（宽离散先验）→ "
                               "branch_rationale、preserve/goals/avoid，并产出 initial_xmp。"
                               "锚点尽量贴近，span 越大允许偏离越多；priors 只作参考，不是固定目标。"
+                              "parameter_knowledge 讲的是通用参数语义（管哪段直方图、什么时候动了也白动），"
+                              "只作提示，不得据此改写锚点。"
                               "用 decode_fields 查可写字段，用 decode_contract('brief') 查必填项。")
         elif item.task == "plan":
             packet["goals"] = brief.get("goals")
             packet["avoid"] = brief.get("avoid")
             packet["history"] = req.get("history")
             packet["last_evaluation"] = req.get("last_evaluation")
+            if req.get("parameter_knowledge"):
+                packet["parameter_knowledge"] = req["parameter_knowledge"]
             packet["hint"] = ("看 current 预览 → 交一份完整 XMP 文本（xmp 字段）。"
                               "前两轮贴近锚点（band_until_round）；第 3 轮起可按本图自由调整；"
-                              "末轮只做收敛或回退。")
+                              "末轮只做收敛或回退。"
+                              "parameter_knowledge 给出各参数负责的直方图区间与禁忌，"
+                              "用于判断「这个动作该不该由这个字段承担」，它不是锚点，也不得覆盖锚点。")
         else:
             packet["goals"] = brief.get("goals")
             packet["avoid"] = brief.get("avoid")

@@ -122,12 +122,14 @@ online_decode/
 ├── drivers/             agent（文件交换）/ queue（MCP 编排）/ api（外部 VLM）/ scripted（测试）
 ├── fingerprint/         包校验、桶判定、CreativeBrief
 ├── params/              字段清单、台账、基线锚定、守卫、XMP 渲染
+│   └── knowledge.py     参数语义知识层（L3 参考层，只提示不碰数值）
 ├── feedback/            LR 端口（真 / 假）、单轮执行器
 ├── eval/                客观指标、证据核验、早停与选轮
 ├── tools/dump_fields.py 从 XmpMapping.lua 生成字段清单
 ├── tools/record_golden.py 录制 / 比对回归轨迹
 ├── data/                fields_manifest.json（产物，勿手改）
-└── tests/               114 项 + golden/cases.json + smoke_stdio.py，无需 Lightroom
+│   └── parameter_knowledge.json  参数语义知识（手写，含原文引用；改后重算哈希）
+└── tests/               144 项 + golden/cases.json + smoke_stdio.py，无需 Lightroom
 ```
 
 依赖方向单向：`session → (fingerprint | params | feedback | eval | report) → errors`。
@@ -230,8 +232,8 @@ sessions/<session_id>/
 python -m unittest discover -s online_decode/tests -t .
 ```
 
-114 项，覆盖：配置越界、守卫七道闸、温度 shift 锚定、桶判定与回退、XMP 解析与拒绝、
-预览哈希漂移、评价不可核验、首轮全拒、单轮无改善早停、5 轮预算、agent 文件交换超时、契约 schema、中断续跑、Golden 回放、MCP 工具链、mock 视觉 API。
+144 项，覆盖：配置越界、守卫七道闸、温度 shift 锚定、桶判定与回退、XMP 解析与拒绝、
+预览哈希漂移、评价不可核验、首轮全拒、单轮无改善早停、5 轮预算、agent 文件交换超时、契约 schema、中断续跑、Golden 回放、MCP 工具链、mock 视觉 API、参数知识层的字段名与可写性一致性。
 
 **故意复现的两个坑**（真机上出现过）：
 - `FakeLrPort(render_hash_drift=True)` → 预览哈希不匹配，该轮作废；
@@ -245,3 +247,58 @@ python -m unittest discover -s online_decode/tests -t .
 2. **合同完善**：`session.json` / `decode_report.json` 的正式 schema。
 3. **真机复测**：指纹包升级为 application_ready 后，用不同支系的图各跑一次
    （海岸冷调 / 夜景城市），验证 AC-02 的真实个性化差异。
+
+---
+
+## 11. 参数知识层（L3 参考层）
+
+### 它是什么
+
+从 Adobe 官方文档提炼的通用 LR 参数语义：每个滑块负责直方图哪一段、什么情况下
+动了也白动、哪些字段本接口写不进。87 条，覆盖全部 87 个字段，每条带原文引用与出处 URL。
+事实源：`data/parameter_knowledge.json`；加载与精简：`params/knowledge.py`。
+
+### 为什么单独一层，不并进指纹包
+
+本层是 `L3_cross_project`（跨摄影师通用知识），不是这位摄影师的风格证据。
+按《离线建档后处理架构设计》§12.4，L3 **明文禁止**作为技能卡生成进指纹包，
+也不得参与 `global + bucket_delta + condition_delta` 的数值合成——
+否则评价阶段会把「通用知识」误认成「这个人的习惯」，风格证据链就脏了。
+
+所以它只回答「这个动作该由哪个字段承担」，冲突时 `anchors` / `narrative` /
+`guardrail` 一律优先，本层不得作为偏离锚点的理由。
+
+### 怎么注入
+
+| 阶段 | 位置 | 说明 |
+|---|---|---|
+| brief | `request["parameter_knowledge"]` | `decode_next` 的 brief 分支透出 |
+| plan | `request["parameter_knowledge"]` | plan 分支不返回 brief 全文，必须单独挂 |
+| 落档 | `brief["parameter_knowledge"]` | 只记 id / hash / `full_ref`，不复制全文 |
+
+键位置在顶层，两个阶段一致，模型不用记两种路径。
+`config.parameter_knowledge=False` 时完全不读文件、不注入，行为与没有本层时逐字节一致。
+
+### 体积与分层
+
+注入视图约 5100 字符（brief 包 8696 → 13850，+59%）。之所以没有全量塞 87 条：
+
+- **只有 `basic` + `whitebalance` 逐条展开**（15 条）——影调控件管哪段、
+  什么时候动了也白动，是教程相对模型先验的真正增量。
+- **`hsl` / `colorgrading` / `parametric` 只给字段名 + 一句组级说明**——
+  `SaturationAdjustmentRed` 一看名字就知道是「红的饱和度」，不值得付 24 份篇幅。
+- **不可写字段只列名字**——列出来是为了让模型别去写（会被守卫拒并烧一轮），
+  不是为了让模型理解它们。
+
+完整条目按 `full_ref` 去读。
+
+### 一致性由测试钉住
+
+`tests/test_knowledge.py`（17 项）检查：字段名必须都在 `fields_manifest.json` 里、
+`writable` 必须与 `tier` 一致（曲线是显式声明的例外）、v1 字段全覆盖、
+带引文必须指向已声明来源、**开关前后整条哈希链逐项相同**（这是「只提示不碰数值」的
+可执行证明，不是文档承诺）。
+
+> 注意：`writable` 指「接口实际能写进 LR」，不等同于 `fields_manifest` 的 `tier`。
+> 曲线 5 个字段 `tier=v1` 但值是 `rdf:Seq`，解析器不支持，故标 `writable=false`
+> 并带 `writable_mismatch_with_manifest=true`。对账时用条目里的 `manifest_tier` 比 tier。

@@ -39,6 +39,10 @@ class Config:
     job_timeout_sec: float | None = None
     strict_schema: bool = True
     decode_mode: str = "auto"
+    # 参数语义知识层（L3_cross_project_reference）：只作提示，不参与数值合成。
+    # 关掉它不改变算法结果，只是模型少一份「这个参数管哪段」的参考。
+    parameter_knowledge: bool = True
+    parameter_knowledge_path: str | None = None
 
     # ---- 派生 ----
     @property
@@ -72,6 +76,7 @@ class Config:
             "driver": self.driver,
             "decode_mode": self.decode_mode,
             "preview_long_edge": self.preview_long_edge,
+            "parameter_knowledge": self.parameter_knowledge,
         }
 
     def validate(self) -> None:
@@ -96,6 +101,9 @@ class Config:
             raise _bad("preview_long_edge 必须在 200–4096 之间")
         if self.decode_mode not in ("auto", "bucket_primary", "global_delta"):
             raise _bad("decode_mode 只能是 auto / bucket_primary / global_delta")
+        if self.parameter_knowledge_path is not None:
+            if not isinstance(self.parameter_knowledge_path, str) or not self.parameter_knowledge_path.strip():
+                raise _bad("parameter_knowledge_path 必须是非空字符串或 null")
 
 
 def _bad(message: str) -> DecodeError:

@@ -1,0 +1,1875 @@
+{
+  "schema_version": "1.0.0",
+  "knowledge_id": "lr_param_semantics_adobe_v1",
+  "layer": "L3_cross_project_reference",
+  "status": "candidate",
+  "scope": "reference_only",
+  "source_kind": "vendor_documentation",
+  "generated_at": "2026-11-09",
+  "bounds": {
+    "does_not_enter_fingerprint": true,
+    "does_not_affect_numeric_synthesis": true,
+    "not_style_evidence": true,
+    "reason": "本层是通用 LR 操作知识（L3_cross_project）。按《离线建档后处理架构设计》§12.4，L3 不得作为技能卡进入指纹包，也不得参与 global+bucket+condition 的数值合成。它只回答「这个参数管画面哪一段、动了会牵动什么」，用来减少瞎调，不构成任何风格主张。",
+    "conflict_rule": "与本层冲突时，指纹 anchors / narrative / guardrail 一律优先；本层不得改写锚点值，也不得作为偏离锚点的理由。"
+  },
+  "sources": [
+    {
+      "id": "adobe_cn_tone_color",
+      "title": "处理图像色调和颜色",
+      "url": "https://helpx.adobe.com/cn/lightroom-classic/help/image-tone-color.html",
+      "lang": "zh-CN",
+      "publisher": "Adobe",
+      "updated": "2025-02-13",
+      "covers": [
+        "whitebalance",
+        "basic",
+        "tonecurve",
+        "hsl",
+        "colorgrading"
+      ]
+    },
+    {
+      "id": "adobe_tone_control",
+      "title": "Tone Control Adjustment in Lightroom Classic and Adobe Camera Raw",
+      "url": "https://helpx.adobe.com/lightroom-classic/desktop/help/tone-control-adjustment.html",
+      "lang": "en",
+      "publisher": "Adobe",
+      "author": "Todd R. Shaner",
+      "updated": "2024-07-29",
+      "covers": [
+        "workflow",
+        "tone_zones",
+        "dehaze"
+      ],
+      "value_note": "该文最有价值的不是参数罗列，而是每个影调滑块对应的直方图亮度区间与调整顺序。"
+    },
+    {
+      "id": "adobe_cn_effects",
+      "title": "调整效果",
+      "url": "https://learn.adobe.com/cn/lightroom/web/edit-photos/apply-effects/adjust-effects.html",
+      "lang": "zh-CN",
+      "publisher": "Adobe",
+      "covers": [
+        "texture",
+        "clarity",
+        "dehaze",
+        "vignette",
+        "grain"
+      ]
+    }
+  ],
+  "workflow": {
+    "order": [
+      "Exposure2012",
+      "Highlights2012",
+      "Shadows2012",
+      "Whites2012",
+      "Blacks2012",
+      "Contrast2012",
+      "Exposure2012@touchup"
+    ],
+    "summary": "先定中点（曝光），再定两端（高光/阴影、白点/黑点），最后回头调对比，末尾再补一次曝光。",
+    "steps": [
+      {
+        "step": 1,
+        "field": "Exposure2012",
+        "do": "定中间调亮度，暂时不管高光和阴影",
+        "tip": "多数图比「看着刚好」再亮 +0.25 到 +0.50 EV 效果更好",
+        "quote": "Set Exposure to correct the image mid-tone brightness ignoring the highlight and shadow areas for now. Setting Exposure slightly higher (+.25 to +.50 EV) than what looks correct for the mid-tones seems to work best with most images."
+      },
+      {
+        "step": 2,
+        "field": "Contrast2012",
+        "do": "先留在 0，第一遍不要动",
+        "quote": "Leave Contrast at 0 for now. It's better to adjust this after the first pass."
+      },
+      {
+        "step": 3,
+        "field": "Highlights2012",
+        "do": "压到过曝区恢复、细部层次出来为止",
+        "quote": "Adjust Highlights so that the blown out areas are recovered and/or the fine tonal detail is revealed."
+      },
+      {
+        "step": 4,
+        "field": "Shadows2012",
+        "do": "提到暗部细节出来为止；常规图取与高光等值反向",
+        "quote": "For most normal images, simply setting +Shadows the same as -Highlights (for example, +50 and -50) works well."
+      },
+      {
+        "step": 5,
+        "field": "Whites2012",
+        "do": "按住 Alt/Option 拖，直到黑色背景上开始出现剪切",
+        "quote": "The Whites control sets the white clipping point, which you can see by holding down the ALT/Option key as you move the slider."
+      },
+      {
+        "step": 6,
+        "field": "Blacks2012",
+        "do": "按住 Alt/Option 拖，直到白色背景上开始出现剪切",
+        "quote": "The Blacks control sets the black clipping point, which you can see by holding down the ALT/Option key as you move the slider."
+      },
+      {
+        "step": 7,
+        "field": "Contrast2012",
+        "do": "回来只调中间调对比，忽略它对整体对比的影响",
+        "quote": "Now go back and adjust the Contrast control to establish the best midtone contrast. Ignore its effect on the overall image contrast. That is set by the Whites and Blacks clipping point controls."
+      },
+      {
+        "step": 8,
+        "field": "Exposure2012",
+        "do": "末尾再补一次中间调亮度",
+        "quote": "Lastly, touch up the Exposure control for the best midtone brightness."
+      }
+    ],
+    "equal_opposite_rule": {
+      "rule": "高光与阴影尽量等值反向（-H ≈ +S），否则直方图整体左移或右移，会与其它所有控制区产生强交互，越调越乱。",
+      "quote": "If the settings are not kept equal and opposite, the image data levels shift to the left or right in the histogram causing a much stronger interaction with all of the other control areas.",
+      "project_note": "指纹锚点本身是摄影师风格，不保证 -H == +S（例如 global 是 highlights -11 / shadows 无锚点）。本规则只用于判断「调完是否需要返工」，不得反过来修改锚点。"
+    },
+    "dynamic_range_guidance": {
+      "high_dynamic_range": {
+        "when": "暗部很深、高光很亮",
+        "range": "Highlights/Shadows 幅度可超过 50，从 -60/+60 到 -100/+100",
+        "quote": "Very high dynamic range images with deep shadows and bright highlights may require higher than 50 settings (-60, +60 up to -100, +100) to reveal detail in those areas."
+      },
+      "low_contrast": {
+        "when": "没有真正深暗部和亮点，如阴天、雾天",
+        "range": "Highlights/Shadows 取小值甚至 0/0；这类图反而应动 Contrast / Clarity / Dehaze",
+        "quote": "Subjects with no deep shadows or bright highlights (that is, overcast lighting or fog) may require lower values (-40, +40 to 0, 0) to maintain contrast. In fact, these are the types of images that may require using +Contrast, +Clarity, or +Dehaze."
+      }
+    }
+  },
+  "tone_zones": {
+    "Exposure2012": [
+      30,
+      70
+    ],
+    "Contrast2012": [
+      30,
+      70
+    ],
+    "Highlights2012": [
+      70,
+      90
+    ],
+    "Shadows2012": [
+      10,
+      30
+    ],
+    "Whites2012": [
+      90,
+      100
+    ],
+    "Blacks2012": [
+      0,
+      10
+    ],
+    "_note": "数值为直方图亮度百分比区间，来自 Adobe 官方 Tone Control 文档的 Tone Control target areas。用于判断「这个动作该不该由这个参数承担」：例如纯白天空已处 90-100%，压 Highlights 无效，应由 Whites 负责。"
+  },
+  "entries": [
+    {
+      "field": "Temperature",
+      "display": "Temperature (K)",
+      "group": "whitebalance",
+      "writable": true,
+      "effect": {
+        "increase": "色温升高，画面转暖/偏黄",
+        "decrease": "色温降低，画面转冷/偏蓝"
+      },
+      "use_when": [
+        "还原现场光色",
+        "统一多图白平衡"
+      ],
+      "caution": [
+        "RAW 用 Kelvin 温标；JPEG/TIFF/PSD 只有 -100~100 温标，范围更窄",
+        "改白平衡必须同时把 WhiteBalance 设为 Custom，否则不生效"
+      ],
+      "quote": "色温可设置您的照片呈现的黄色/暖或蓝色/冷程度。将该滑块左移可降低照片的色温，将其右移可提高照片的色温。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "Tint",
+      "display": "Tint",
+      "group": "whitebalance",
+      "writable": true,
+      "effect": {
+        "increase": "加洋红（抵消偏绿）",
+        "decrease": "加绿（抵消偏洋红）"
+      },
+      "use_when": [
+        "荧光灯偏绿",
+        "局部阴影偏色"
+      ],
+      "caution": [
+        "阴影区残留绿/洋红偏色优先用 ShadowTint（属 tier=ext，本接口写不进）",
+        "Tint 全图生效，改之前先确认偏色是全局还是只在暗部"
+      ],
+      "quote": "「色调」可设置您的照片呈现的绿色或洋红色程度。将滑块左移（负值）可给照片添加绿色；将滑块右移（正值）可添加洋红。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "WhiteBalance",
+      "display": "White Balance",
+      "group": "whitebalance",
+      "writable": true,
+      "effect": {
+        "increase": "枚举值，选择白平衡模式（As Shot / Auto / Custom 等）",
+        "decrease": "同上"
+      },
+      "use_when": [
+        "任何要动 Temperature 或 Tint 的场合"
+      ],
+      "caution": [
+        "必须设为 Custom，否则 Temperature/Tint 改动不生效——这是写 XMP 最容易漏的一步"
+      ],
+      "quote": "白平衡预设选项仅适用于 Raw 照片和 DNG 照片。使用滑块可以编辑所有照片的白平衡。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "Exposure2012",
+      "display": "Exposure",
+      "group": "basic",
+      "writable": true,
+      "tone_zone": [
+        30,
+        70
+      ],
+      "effect": {
+        "increase": "整体提亮，作用于中间调",
+        "decrease": "整体压暗，作用于中间调"
+      },
+      "use_when": [
+        "先定中间调亮度的第一步",
+        "末尾复核一次"
+      ],
+      "caution": [
+        "+1.00 约等于光圈 +1 档，幅度不要凭感觉给",
+        "它动的是中间调；极暗或极亮区要靠 Shadows/Highlights，不要用曝光硬拉"
+      ],
+      "quote": "曝光度值的递增与相机光圈值（光圈大小）的递增等量相当。将曝光度调整 +1.00 相当于使光圈值增加 1。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "Contrast2012",
+      "display": "Contrast",
+      "group": "basic",
+      "writable": true,
+      "tone_zone": [
+        30,
+        70
+      ],
+      "effect": {
+        "increase": "中间调对比增强：中间偏暗更暗、中间偏亮更亮",
+        "decrease": "中间调对比减弱"
+      },
+      "use_when": [
+        "整体发闷、发灰",
+        "低对比场景（阴天、雾天）补救"
+      ],
+      "caution": [
+        "只影响中间调，不要用它调整体对比——整体对比由 Whites/Blacks 剪切点决定",
+        "流程上应放在高光/阴影之后，第一遍留 0"
+      ],
+      "quote": "增加或降低图像对比度，主要影响中间色调。增加对比度时，中间色调到暗色调的图像区域会变得更暗，而中间色调到亮色调的图像区域会变得更亮。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "Highlights2012",
+      "display": "Highlights",
+      "group": "basic",
+      "writable": true,
+      "tone_zone": [
+        70,
+        90
+      ],
+      "effect": {
+        "increase": "提亮高光，同时尽量不产生剪切",
+        "decrease": "压暗高光，恢复被压平的高光细节"
+      },
+      "use_when": [
+        "云层过曝",
+        "亮部细节被压平"
+      ],
+      "caution": [
+        "只管 70-90%；已达 90-100% 的纯白区压它基本无效，那里是 Whites 的职责",
+        "与阴影尽量等值反向，否则直方图整体漂移，需要大量返工"
+      ],
+      "quote": "调整图像明亮区域。向左拖动可使高光变暗，并恢复「模糊化的」高光细节。向右拖动可使高光变亮，同时最小化剪切。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "Shadows2012",
+      "display": "Shadows",
+      "group": "basic",
+      "writable": true,
+      "tone_zone": [
+        10,
+        30
+      ],
+      "effect": {
+        "increase": "提亮暗部，恢复阴影细节",
+        "decrease": "压暗暗部，同时最小化剪切"
+      },
+      "use_when": [
+        "暗部死黑但需要结构",
+        "逆光欠曝的暗部"
+      ],
+      "caution": [
+        "提到 +40 以上容易发灰发脏，也容易把噪点提上来",
+        "指纹是暗调风格时，提阴影等于直接削弱风格——先看 narrative 再决定"
+      ],
+      "quote": "调整黑暗图像区域。向左拖动可使阴影变暗，同时最小化剪切。向右拖动可使阴影变亮，并恢复阴影细节。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "Whites2012",
+      "display": "Whites",
+      "group": "basic",
+      "writable": true,
+      "tone_zone": [
+        90,
+        100
+      ],
+      "effect": {
+        "increase": "提高白点，增加高光剪切（镜面高光可适当接受）",
+        "decrease": "降低白点，减少高光剪切"
+      },
+      "use_when": [
+        "需要明确白点在哪",
+        "整体动态范围没用满"
+      ],
+      "caution": [
+        "它定义的是白点，不是「提亮亮部」——想提亮亮部细节用 Highlights",
+        "雾天/低对比图可以允许不给白点剪切（取更低值），保住空气感"
+      ],
+      "quote": "调整白色色阶剪切。向左拖动可减少高光剪切。向右拖动可增加高光剪切。（对于镜面高光（如金属表面），可能需要增加剪切。）",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "Blacks2012",
+      "display": "Blacks",
+      "group": "basic",
+      "writable": true,
+      "tone_zone": [
+        0,
+        10
+      ],
+      "effect": {
+        "increase": "降低黑点，减少阴影剪切（黑更黑）",
+        "decrease": "提高黑点，让阴影更早过渡到纯黑，画面更「扎实」"
+      },
+      "use_when": [
+        "画面发灰缺底",
+        "需要压出暗部重量"
+      ],
+      "caution": [
+        "注意方向与 Whites 相反：向左才是「更黑」，容易与直觉搞反",
+        "压过头会把暗部结构整片吃掉，夜景尤其危险"
+      ],
+      "quote": "调整黑色色阶剪切。向左拖动可增加黑色色阶剪切（将更多的阴影映射到纯黑色）。向右拖动可减少阴影剪切。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "Clarity2012",
+      "display": "Clarity",
+      "group": "basic",
+      "writable": true,
+      "effect": {
+        "increase": "增强局部对比，画面更「立体」、更有力",
+        "decrease": "柔化，画面发柔"
+      },
+      "use_when": [
+        "主体结构需要强化",
+        "雾气场景需要中景分离"
+      ],
+      "caution": [
+        "官方建议放大到 100% 调，加到边缘出现光晕再往回减一点",
+        "人像慎用，会把皮肤纹理和瑕疵一起拉出来"
+      ],
+      "quote": "通过增加局部对比度来增加图像深度。使用此设置时，最好放大到 100% 或更大。要使效果达到最佳，请增大该设置值，直到您看到图像边缘细节附近出现光晕，然后再稍微减小该值。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "Texture",
+      "display": "Texture",
+      "group": "basic",
+      "writable": true,
+      "effect": {
+        "increase": "突出中频纹理细节",
+        "decrease": "平滑中频细节"
+      },
+      "use_when": [
+        "需要加细节但不想要 Clarity 那种整体厚重感"
+      ],
+      "caution": [
+        "不动颜色和色调，是三者里最「干净」的加细节手段",
+        "与 Clarity 不同，它不牵动黑白场"
+      ],
+      "quote": "平滑或突出照片中的纹理细节。向左移动滑块可平滑细节；向右移动滑块可突出细节。调整「纹理」滑块时，颜色和色调不会更改。",
+      "source_ref": "adobe_cn_effects",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "Dehaze",
+      "display": "Dehaze",
+      "group": "basic",
+      "writable": true,
+      "effect": {
+        "increase": "去雾，压掉空气透视、提升对比与饱和",
+        "decrease": "加雾，制造空气感（负值）"
+      },
+      "use_when": [
+        "镜头雾化/眩光导致的低对比：15-25 通常够",
+        "真实大气雾：可用更高值"
+      ],
+      "caution": [
+        "推过会同时加蓝、加饱和，需要回头压蓝饱和",
+        "大气雾本身是这个场景的情绪来源时，压掉雾就等于毁掉风格——先看 narrative"
+      ],
+      "quote": "The Dehaze control is useful for images with visible atmospheric haze (fog, smog, smoke) and images with low contrast due to lens flare or other lens issues. In the latter case, adding a Dehaze setting of 15-25 may be just what's needed to add some life back into the otherwise flat images. Atmospheric haze often requires higher settings and may also require using the local controls.",
+      "source_ref": "adobe_tone_control",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "Vibrance",
+      "display": "Vibrance",
+      "group": "basic",
+      "writable": true,
+      "effect": {
+        "increase": "提升低饱和颜色的饱和，对已高饱和的颜色影响小",
+        "decrease": "降低饱和度，优先削低饱和部分"
+      },
+      "use_when": [
+        "整体加饱和的首选",
+        "含肤色的画面"
+      ],
+      "caution": [
+        "接近最大饱和时自动减少剪切，所以不会像 Saturation 那样溢出",
+        "它优先作用于偏冷/低饱和区，加暖调不如 Saturation 直接"
+      ],
+      "quote": "调整饱和度以便在颜色接近最大饱和度时最大限度地减少剪切，从而更改所有低饱和度的颜色的饱和度，而对高饱和度的颜色的影响较小。适当设置鲜艳度还可避免肤色变得过度饱和。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "Saturation",
+      "display": "Saturation",
+      "group": "basic",
+      "writable": true,
+      "effect": {
+        "increase": "所有颜色统一加倍饱和",
+        "decrease": "所有颜色统一降饱和，-100 为黑白"
+      },
+      "use_when": [
+        "需要整体统一压/提饱和"
+      ],
+      "caution": [
+        "全局无差别，最先把红色和橙黄推爆",
+        "和 Vibrance 叠加容易过量，通常只用其一"
+      ],
+      "quote": "将所有图像颜色的饱和度从 100（黑白）同步调整为 +100（使饱和度翻倍）。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ConvertToGrayscale",
+      "display": "Convert to B&W",
+      "group": "basic",
+      "writable": true,
+      "effect": {
+        "increase": "转黑白",
+        "decrease": "回彩色"
+      },
+      "use_when": [
+        "明确要黑白输出时"
+      ],
+      "caution": [
+        "一旦为真，所有 HSL 与颜色分级效果失去意义",
+        "指纹是彩色风格时不应打开"
+      ],
+      "quote": "「黑白」面板中的「黑白混合」可用于将彩色图像转换为黑白灰度图像，允许您控制将各种颜色转换为灰色色调的方式。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "HueAdjustmentRed",
+      "display": "Red Hue",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "红色色相顺时针偏移（偏橙）",
+        "decrease": "红色色相逆时针偏移（偏洋红）"
+      },
+      "use_when": [
+        "需要统一多处相近红色的观感"
+      ],
+      "caution": [
+        "影响画面中所有相近的红色，不只是主体",
+        "色相一动，饱和度与明度的观感会跟着变，需要联动复核"
+      ],
+      "quote": "色相可调整每种颜色的色调并更改其颜色。请注意，照片中所有相近的红色将都会受到影响。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "HueAdjustmentOrange",
+      "display": "Orange Hue",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "橙色调向黄",
+        "decrease": "橙色调向红"
+      },
+      "use_when": [
+        "暖调统一",
+        "肤色调整"
+      ],
+      "caution": [
+        "橙同时覆盖肤色和暖土色，改它等于同时改两个东西",
+        "冷暖并置的风格里，动橙会破坏两极关系"
+      ],
+      "quote": "色相可调整每种颜色的色调并更改其颜色。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "HueAdjustmentYellow",
+      "display": "Yellow Hue",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "黄色调向绿",
+        "decrease": "黄色调向橙"
+      },
+      "use_when": [
+        "秋色/暖光统一"
+      ],
+      "caution": [
+        "和橙色一起动会整体改变暖调倾向"
+      ],
+      "quote": "色相可调整每种颜色的色调并更改其颜色。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "HueAdjustmentGreen",
+      "display": "Green Hue",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "绿色调向青",
+        "decrease": "绿色调向黄"
+      },
+      "use_when": [
+        "植被统一",
+        "压掉发黄的绿"
+      ],
+      "caution": [
+        "绿色跨度大，容易同时牵动草木与冷调背景"
+      ],
+      "quote": "色相可调整每种颜色的色调并更改其颜色。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "HueAdjustmentAqua",
+      "display": "Aqua Hue",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "青色调向蓝",
+        "decrease": "青色调向绿"
+      },
+      "use_when": [
+        "水面/天空的冷调统一"
+      ],
+      "caution": [
+        "青蓝常与 Dehaze 叠加过量，去雾之后先回来复查"
+      ],
+      "quote": "色相可调整每种颜色的色调并更改其颜色。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "HueAdjustmentBlue",
+      "display": "Blue Hue",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "蓝色调向紫",
+        "decrease": "蓝色调向青"
+      },
+      "use_when": [
+        "天空偏紫/偏青的修正"
+      ],
+      "caution": [
+        "蓝色同时覆盖天空、水面、阴影冷调，影响面很广"
+      ],
+      "quote": "色相可调整每种颜色的色调并更改其颜色。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "HueAdjustmentPurple",
+      "display": "Purple Hue",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "紫色调向洋红",
+        "decrease": "紫色调向蓝"
+      },
+      "use_when": [
+        "天空紫边的修正"
+      ],
+      "caution": [
+        "影响范围相对窄，适合做微调"
+      ],
+      "quote": "色相可调整每种颜色的色调并更改其颜色。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "HueAdjustmentMagenta",
+      "display": "Magenta Hue",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "洋红调向紫",
+        "decrease": "洋红调向红"
+      },
+      "use_when": [
+        "花朵/晚霞的色相微调"
+      ],
+      "caution": [
+        "与 Tint 的洋红方向容易互相抵消，调之前先确认是哪一层偏色"
+      ],
+      "quote": "色相可调整每种颜色的色调并更改其颜色。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "SaturationAdjustmentRed",
+      "display": "Red Saturation",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "红色更艳",
+        "decrease": "红色更灰"
+      },
+      "use_when": [
+        "红灯笼、砖墙、晚霞的强度控制"
+      ],
+      "caution": [
+        "全局振动（Vibrance/Saturation）已经把红色推高时，这里再推容易溢出"
+      ],
+      "quote": "如果红色物体看起来太亮或分散注意力，请调整红色的「饱和度」滑块来降低其强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "SaturationAdjustmentOrange",
+      "display": "Orange Saturation",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "橙更艳",
+        "decrease": "橙更灰"
+      },
+      "use_when": [
+        "暖土色强度控制",
+        "肤色收敛"
+      ],
+      "caution": [
+        "肤色过饱和通常是这里，而不是全局 Saturation"
+      ],
+      "quote": "如果红色物体看起来太亮或分散注意力，请调整红色的「饱和度」滑块来降低其强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "SaturationAdjustmentYellow",
+      "display": "Yellow Saturation",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "黄更艳",
+        "decrease": "黄更灰"
+      },
+      "use_when": [
+        "秋叶、暖光收敛"
+      ],
+      "caution": [
+        "黄色过饱和会让画面显脏"
+      ],
+      "quote": "请记住，此更改会影响照片中所有类似的颜色。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "SaturationAdjustmentGreen",
+      "display": "Green Saturation",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "绿更艳",
+        "decrease": "绿更灰"
+      },
+      "use_when": [
+        "植被收敛"
+      ],
+      "caution": [
+        "绿色降饱和是常用的「去廉价绿」手段，但降过头会显得死"
+      ],
+      "quote": "请记住，此更改会影响照片中所有类似的颜色。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "SaturationAdjustmentAqua",
+      "display": "Aqua Saturation",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "青更艳",
+        "decrease": "青更灰"
+      },
+      "use_when": [
+        "水面冷调控制"
+      ],
+      "caution": [
+        "Dehaze 加饱和后常见青蓝过艳，靠这里回收"
+      ],
+      "quote": "请记住，此更改会影响照片中所有类似的颜色。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "SaturationAdjustmentBlue",
+      "display": "Blue Saturation",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "蓝更艳",
+        "decrease": "蓝更灰"
+      },
+      "use_when": [
+        "天空/阴影冷调控制"
+      ],
+      "caution": [
+        "Dehaze 过量会带来蓝色偏移，官方文档外的实践口诀是「先 Dehaze，再压蓝饱和」"
+      ],
+      "quote": "请记住，此更改会影响照片中所有类似的颜色。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "SaturationAdjustmentPurple",
+      "display": "Purple Saturation",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "紫更艳",
+        "decrease": "紫更灰"
+      },
+      "use_when": [
+        "晚霞紫调控制"
+      ],
+      "caution": [
+        "范围窄，少量即见效"
+      ],
+      "quote": "请记住，此更改会影响照片中所有类似的颜色。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "SaturationAdjustmentMagenta",
+      "display": "Magenta Saturation",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "洋红更艳",
+        "decrease": "洋红更灰"
+      },
+      "use_when": [
+        "去除暗部洋红脏色"
+      ],
+      "caution": [
+        "降洋红是清理阴影偏色的常用手段"
+      ],
+      "quote": "请记住，此更改会影响照片中所有类似的颜色。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "LuminanceAdjustmentRed",
+      "display": "Red Luminance",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "红色更亮",
+        "decrease": "红色更暗"
+      },
+      "use_when": [
+        "压暗红色让它退后",
+        "提亮红色让它跳出来"
+      ],
+      "caution": [
+        "只改明度不改饱和，是分离同色物体的主要手段"
+      ],
+      "quote": "左右拖曳滑块以设定强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "LuminanceAdjustmentOrange",
+      "display": "Orange Luminance",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "橙更亮",
+        "decrease": "橙更暗"
+      },
+      "use_when": [
+        "压暗暖调阴影",
+        "提亮暖光"
+      ],
+      "caution": [
+        "橙的明度直接影响肤色亮度观感"
+      ],
+      "quote": "左右拖曳滑块以设定强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "LuminanceAdjustmentYellow",
+      "display": "Yellow Luminance",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "黄更亮",
+        "decrease": "黄更暗"
+      },
+      "use_when": [
+        "压暗暖光高光区"
+      ],
+      "caution": [
+        "压过头会出现发浑的土色"
+      ],
+      "quote": "左右拖曳滑块以设定强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "LuminanceAdjustmentGreen",
+      "display": "Green Luminance",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "绿更亮",
+        "decrease": "绿更暗"
+      },
+      "use_when": [
+        "压暗植被让它不抢主体"
+      ],
+      "caution": [
+        "大幅压暗绿色容易显得脏"
+      ],
+      "quote": "左右拖曳滑块以设定强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "LuminanceAdjustmentAqua",
+      "display": "Aqua Luminance",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "青更亮",
+        "decrease": "青更暗"
+      },
+      "use_when": [
+        "水面亮度控制"
+      ],
+      "caution": [
+        "提亮青色常用来做「水汽感」"
+      ],
+      "quote": "左右拖曳滑块以设定强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "LuminanceAdjustmentBlue",
+      "display": "Blue Luminance",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "蓝更亮",
+        "decrease": "蓝更暗"
+      },
+      "use_when": [
+        "压暗天空",
+        "提亮冷调暗部"
+      ],
+      "caution": [
+        "压暗蓝天是最常见的「加重量」手法，但会同时压掉云层层次"
+      ],
+      "quote": "左右拖曳滑块以设定强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "LuminanceAdjustmentPurple",
+      "display": "Purple Luminance",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "紫更亮",
+        "decrease": "紫更暗"
+      },
+      "use_when": [
+        "晚霞层次控制"
+      ],
+      "caution": [
+        "范围窄，少量即见效"
+      ],
+      "quote": "左右拖曳滑块以设定强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "LuminanceAdjustmentMagenta",
+      "display": "Magenta Luminance",
+      "group": "hsl",
+      "writable": true,
+      "effect": {
+        "increase": "洋红更亮",
+        "decrease": "洋红更暗"
+      },
+      "use_when": [
+        "压掉暗部洋红"
+      ],
+      "caution": [
+        "与降洋红饱和配合使用效果更干净"
+      ],
+      "quote": "左右拖曳滑块以设定强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "SplitToningShadowHue",
+      "display": "Shadows Hue",
+      "group": "colorgrading",
+      "writable": true,
+      "effect": {
+        "increase": "阴影染色色相顺时针偏移（0-360 度环）",
+        "decrease": "逆时针偏移"
+      },
+      "use_when": [
+        "给暗部统一染一个色相"
+      ],
+      "caution": [
+        "色相是 0-360 环形量，不适用「大小」直觉；跨 0 点要按环形距离比较",
+        "必须配合 SplitToningShadowSaturation 才能看见效果"
+      ],
+      "quote": "调整「高光」、「中间色调」和「阴影」区域中的「色相」和「饱和度」。「色相」滑块可用于设置色调颜色，「饱和度」滑块用于设置效果的强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "SplitToningShadowSaturation",
+      "display": "Shadows Saturation",
+      "group": "colorgrading",
+      "writable": true,
+      "effect": {
+        "increase": "阴影染色更浓",
+        "decrease": "阴影染色更淡，0 等于不染"
+      },
+      "use_when": [
+        "控制暗部染色的强度"
+      ],
+      "caution": [
+        "饱和度一旦到位，色相的微小变化就会很明显"
+      ],
+      "quote": "「饱和度」滑块用于设置效果的强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "SplitToningHighlightHue",
+      "display": "Highlights Hue",
+      "group": "colorgrading",
+      "writable": true,
+      "effect": {
+        "increase": "高光染色色相顺时针偏移",
+        "decrease": "逆时针偏移"
+      },
+      "use_when": [
+        "高光纳入统一的冷暖体系"
+      ],
+      "caution": [
+        "与阴影色相相反时形成分离色调，同向时形成整体染色，风格差别很大"
+      ],
+      "quote": "调整「高光」、「中间色调」和「阴影」区域中的「色相」和「饱和度」。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "SplitToningHighlightSaturation",
+      "display": "Highlights Saturation",
+      "group": "colorgrading",
+      "writable": true,
+      "effect": {
+        "increase": "高光染色更浓",
+        "decrease": "更淡"
+      },
+      "use_when": [
+        "高光染色强度控制"
+      ],
+      "caution": [
+        "高光染色过浓会显脏，尤其在灰白天空上"
+      ],
+      "quote": "「饱和度」滑块用于设置效果的强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "SplitToningBalance",
+      "display": "Balance",
+      "group": "colorgrading",
+      "writable": true,
+      "effect": {
+        "increase": "增强高光侧效果",
+        "decrease": "增强阴影侧效果"
+      },
+      "use_when": [
+        "调整染色在明暗两端的分配比例"
+      ],
+      "caution": [
+        "它不改变染色色相，只改变重心，别当成强度滑块用"
+      ],
+      "quote": "设置「平衡」滑块以平衡高光、中间色调和阴影的效果。大于 0 的值将增强高光的效果，小于 0 的值将增强阴影的效果。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ColorGradeGlobalHue",
+      "display": "Global Hue",
+      "group": "colorgrading",
+      "writable": true,
+      "effect": {
+        "increase": "全局染色色相顺时针偏移",
+        "decrease": "逆时针偏移"
+      },
+      "use_when": [
+        "全画面统一色偏"
+      ],
+      "caution": [
+        "全局染色会同时压掉原有的冷暖并置关系"
+      ],
+      "quote": "「色相」滑块可用于设置色调颜色。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ColorGradeGlobalSat",
+      "display": "Global Saturation",
+      "group": "colorgrading",
+      "writable": true,
+      "effect": {
+        "increase": "全局染色更浓",
+        "decrease": "更淡"
+      },
+      "use_when": [
+        "整体色调倾向的强度控制"
+      ],
+      "caution": [
+        "全局染色与 HSL 饱和度叠加容易过头"
+      ],
+      "quote": "「饱和度」滑块用于设置效果的强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ColorGradeGlobalLum",
+      "display": "Global Luminance",
+      "group": "colorgrading",
+      "writable": true,
+      "effect": {
+        "increase": "全局染色的明度提高",
+        "decrease": "降低"
+      },
+      "use_when": [
+        "调整整层染色的明暗，不改变色相与饱和"
+      ],
+      "caution": [
+        "它调的是染色层明度，不是画面亮度"
+      ],
+      "quote": "「色相」滑块可用于设置色调颜色，「饱和度」滑块用于设置效果的强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ColorGradeMidtoneHue",
+      "display": "Midtones Hue",
+      "group": "colorgrading",
+      "writable": true,
+      "effect": {
+        "increase": "中间调染色色相顺时针偏移",
+        "decrease": "逆时针偏移"
+      },
+      "use_when": [
+        "只给中间调染色，保留高光与阴影"
+      ],
+      "caution": [
+        "中间调占比最大，动它观感变化最明显"
+      ],
+      "quote": "调整「高光」、「中间色调」和「阴影」区域中的「色相」和「饱和度」。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ColorGradeMidtoneSat",
+      "display": "Midtones Saturation",
+      "group": "colorgrading",
+      "writable": true,
+      "effect": {
+        "increase": "中间调染色更浓",
+        "decrease": "更淡"
+      },
+      "use_when": [
+        "中间调染色强度控制"
+      ],
+      "caution": [
+        "中间调染色过浓会让整体发灰"
+      ],
+      "quote": "「饱和度」滑块用于设置效果的强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ColorGradeMidtoneLum",
+      "display": "Midtones Luminance",
+      "group": "colorgrading",
+      "writable": true,
+      "effect": {
+        "increase": "中间调染色层明度提高",
+        "decrease": "降低"
+      },
+      "use_when": [
+        "染色层的明暗微调"
+      ],
+      "caution": [
+        "不是画面亮度控制，别与 Exposure 混用"
+      ],
+      "quote": "「色相」滑块可用于设置色调颜色，「饱和度」滑块用于设置效果的强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ColorGradeHighlightLum",
+      "display": "Highlights Luminance",
+      "group": "colorgrading",
+      "writable": true,
+      "effect": {
+        "increase": "高光染色层明度提高",
+        "decrease": "降低"
+      },
+      "use_when": [
+        "让高光染色的存在感减弱"
+      ],
+      "caution": [
+        "与 SplitToningHighlightSaturation 配合，别两个一起拉满"
+      ],
+      "quote": "「色相」滑块可用于设置色调颜色，「饱和度」滑块用于设置效果的强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ColorGradeShadowLum",
+      "display": "Shadows Luminance",
+      "group": "colorgrading",
+      "writable": true,
+      "effect": {
+        "increase": "阴影染色层明度提高",
+        "decrease": "降低"
+      },
+      "use_when": [
+        "暗部染色的存在感控制"
+      ],
+      "caution": [
+        "暗部本身很黑时，这个滑块的可感知范围很小"
+      ],
+      "quote": "「色相」滑块可用于设置色调颜色，「饱和度」滑块用于设置效果的强度。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ColorGradeBlending",
+      "display": "Blending",
+      "group": "colorgrading",
+      "writable": true,
+      "effect": {
+        "increase": "增大阴影与高光之间的重叠",
+        "decrease": "减小重叠"
+      },
+      "use_when": [
+        "染色区的过渡生硬时"
+      ],
+      "caution": [
+        "重叠过大时三段的染色会互相污染"
+      ],
+      "quote": "调整「混合」滑块，以设置阴影和高光之间的重叠量。向右拖动滑块可最大化重叠，向左拖动滑块可最小化重叠。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ParametricHighlights",
+      "display": "Parametric Highlights",
+      "group": "parametric",
+      "writable": true,
+      "effect": {
+        "increase": "曲线上端抬升，高光变亮",
+        "decrease": "高光压暗"
+      },
+      "use_when": [
+        "曲线式的高光微调，不写点曲线也能做"
+      ],
+      "caution": [
+        "影响曲线两极区域，是「高光」段而非「亮色调」段",
+        "与 Highlights2012 叠加会重复作用，选一个"
+      ],
+      "quote": "「暗色调」和「亮色调」滑块主要影响曲线的中部区域。「高光」和「阴影」滑块主要影响色调范围的两极区域。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ParametricLights",
+      "display": "Parametric Lights",
+      "group": "parametric",
+      "writable": true,
+      "effect": {
+        "increase": "亮色调变亮",
+        "decrease": "亮色调变暗"
+      },
+      "use_when": [
+        "上半部中间调的精细调整"
+      ],
+      "caution": [
+        "影响曲线中部，作用范围比 Highlights 更靠近中间调"
+      ],
+      "quote": "「暗色调」和「亮色调」滑块主要影响曲线的中部区域。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ParametricDarks",
+      "display": "Parametric Darks",
+      "group": "parametric",
+      "writable": true,
+      "effect": {
+        "increase": "暗色调变亮",
+        "decrease": "暗色调变暗"
+      },
+      "use_when": [
+        "下半部中间调的精细调整"
+      ],
+      "caution": [
+        "与 Shadows2012 作用区相近，注意不要重复用力"
+      ],
+      "quote": "「暗色调」和「亮色调」滑块主要影响曲线的中部区域。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ParametricShadows",
+      "display": "Parametric Shadows",
+      "group": "parametric",
+      "writable": true,
+      "effect": {
+        "increase": "阴影变亮",
+        "decrease": "阴影变暗"
+      },
+      "use_when": [
+        "暗部两端的曲线式调整"
+      ],
+      "caution": [
+        "影响曲线极端的阴影段，压过头会直接切掉暗部"
+      ],
+      "quote": "「高光」和「阴影」滑块主要影响色调范围的两极区域。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ParametricHighlightSplit",
+      "display": "Highlight Split",
+      "group": "parametric",
+      "writable": true,
+      "effect": {
+        "increase": "高光区起点上移，划分出的高光范围变窄",
+        "decrease": "高光范围变宽"
+      },
+      "use_when": [
+        "调整四段区域的分界位置"
+      ],
+      "caution": [
+        "它是分界点不是强度，改它等于改四个滑块的作用范围"
+      ],
+      "quote": "要编辑曲线区域，请拖动位于色调曲线图底部的分离控件。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ParametricMidtoneSplit",
+      "display": "Midtone Split",
+      "group": "parametric",
+      "writable": true,
+      "effect": {
+        "increase": "亮/暗色调分界上移",
+        "decrease": "分界下移"
+      },
+      "use_when": [
+        "中间调四段划分的调整"
+      ],
+      "caution": [
+        "分界一动，Lights 与 Darks 的落点全部改变"
+      ],
+      "quote": "要编辑曲线区域，请拖动位于色调曲线图底部的分离控件。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ParametricShadowSplit",
+      "display": "Shadow Split",
+      "group": "parametric",
+      "writable": true,
+      "effect": {
+        "increase": "阴影区终点上移，阴影范围变宽",
+        "decrease": "阴影范围变窄"
+      },
+      "use_when": [
+        "阴影与暗色调的分界调整"
+      ],
+      "caution": [
+        "与 Blacks 一起决定暗部到底吃掉多少"
+      ],
+      "quote": "要编辑曲线区域，请拖动位于色调曲线图底部的分离控件。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1"
+    },
+    {
+      "field": "ToneCurveName2012",
+      "display": "Tone Curve Name",
+      "group": "tonecurve",
+      "writable": false,
+      "blocked_reason": "曲线属 rdf:Seq 结构，本接口解析器不支持；按 README §8 由守卫拒绝，恢复到已有曲线走 restore_settings。",
+      "effect": {
+        "increase": "曲线预设选择（线性/中对比度/强对比度）",
+        "decrease": "同上"
+      },
+      "use_when": [],
+      "caution": [
+        "不要尝试写，会被 FIELD_UNSUPPORTED 拦下"
+      ],
+      "quote": "从点曲线菜单中选择一个设置：「线性」、「中对比度」或「强对比度」。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1",
+      "writable_mismatch_with_manifest": true
+    },
+    {
+      "field": "ToneCurvePV2012",
+      "display": "Point Curve",
+      "group": "tonecurve",
+      "writable": false,
+      "blocked_reason": "rdf:Seq 数组形式，解析器不支持。",
+      "effect": {
+        "increase": "上移曲线点使该段变亮",
+        "decrease": "下移使该段变暗"
+      },
+      "use_when": [],
+      "caution": [
+        "曲线是最强力的整体调整，但本接口写不进；需要曲线效果时用参数化曲线 7 个字段近似"
+      ],
+      "quote": "如果曲线上的某个点上移，色调会变亮；如果下移，色调会变暗。45 度的直线表示色调等级没有任何变化。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1",
+      "writable_mismatch_with_manifest": true
+    },
+    {
+      "field": "ToneCurvePV2012Red",
+      "display": "Point Curve (Red)",
+      "group": "tonecurve",
+      "writable": false,
+      "blocked_reason": "rdf:Seq 数组形式，解析器不支持。",
+      "effect": {
+        "increase": "红色通道曲线上移",
+        "decrease": "下移"
+      },
+      "use_when": [],
+      "caution": [
+        "单通道曲线是最精确的偏色校正手段，但本接口写不进"
+      ],
+      "quote": "从通道弹出菜单中选择一个选项。您可以同时编辑所有三个通道，也可以单独编辑每个通道（红色、绿色或蓝色）。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1",
+      "writable_mismatch_with_manifest": true
+    },
+    {
+      "field": "ToneCurvePV2012Green",
+      "display": "Point Curve (Green)",
+      "group": "tonecurve",
+      "writable": false,
+      "blocked_reason": "rdf:Seq 数组形式，解析器不支持。",
+      "effect": {
+        "increase": "绿色通道曲线上移",
+        "decrease": "下移"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "从通道弹出菜单中选择一个选项。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1",
+      "writable_mismatch_with_manifest": true
+    },
+    {
+      "field": "ToneCurvePV2012Blue",
+      "display": "Point Curve (Blue)",
+      "group": "tonecurve",
+      "writable": false,
+      "blocked_reason": "rdf:Seq 数组形式，解析器不支持。",
+      "effect": {
+        "increase": "蓝色通道曲线上移",
+        "decrease": "下移"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "从通道弹出菜单中选择一个选项。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "v1",
+      "writable_mismatch_with_manifest": true
+    },
+    {
+      "field": "Sharpness",
+      "display": "Sharpening Amount",
+      "group": "extDetail",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进（FIELD_UNSUPPORTED）。指纹里若出现锐化值，属先验记录，不是靠 XMP 写入。",
+      "effect": {
+        "increase": "锐化强度提高",
+        "decrease": "降低"
+      },
+      "use_when": [],
+      "caution": [
+        "不要在 plan 里尝试写，会被守卫拒绝并浪费一轮"
+      ],
+      "quote": "",
+      "source_ref": null,
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "SharpenRadius",
+      "display": "Sharpen Radius",
+      "group": "extDetail",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "锐化作用半径变大",
+        "decrease": "变小"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "",
+      "source_ref": null,
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "SharpenDetail",
+      "display": "Sharpen Detail",
+      "group": "extDetail",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "锐化更强调细节边缘",
+        "decrease": "更平滑"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "",
+      "source_ref": null,
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "SharpenEdgeMasking",
+      "display": "Sharpen Edge Masking",
+      "group": "extDetail",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "只在明显边缘锐化",
+        "decrease": "锐化范围扩大"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "",
+      "source_ref": null,
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "LuminanceSmoothing",
+      "display": "Luminance Noise Reduction",
+      "group": "extDetail",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "亮度噪点抑制增强",
+        "decrease": "减弱"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "",
+      "source_ref": null,
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "LuminanceNoiseReductionDetail",
+      "display": "Luminance NR Detail",
+      "group": "extDetail",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "保留更多细节",
+        "decrease": "更平滑"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "",
+      "source_ref": null,
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "LuminanceNoiseReductionContrast",
+      "display": "Luminance NR Contrast",
+      "group": "extDetail",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "降噪后对比保留更多",
+        "decrease": "更平"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "",
+      "source_ref": null,
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "ColorNoiseReduction",
+      "display": "Color Noise Reduction",
+      "group": "extDetail",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "彩噪抑制增强",
+        "decrease": "减弱"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "",
+      "source_ref": null,
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "ColorNoiseReductionDetail",
+      "display": "Color NR Detail",
+      "group": "extDetail",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "彩噪抑制更细",
+        "decrease": "更粗"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "",
+      "source_ref": null,
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "ColorNoiseReductionSmoothness",
+      "display": "Color NR Smoothness",
+      "group": "extDetail",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "彩噪边界更平滑",
+        "decrease": "更锐利"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "",
+      "source_ref": null,
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "PostCropVignetteAmount",
+      "display": "Post-Crop Vignette Amount",
+      "group": "extEffects",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "加亮四角",
+        "decrease": "压暗四角"
+      },
+      "use_when": [],
+      "caution": [
+        "暗角是最容易「一眼假」的效果之一，指纹未担保时不要加"
+      ],
+      "quote": "晕影：将照片的外边缘变得更亮或更暗。",
+      "source_ref": "adobe_cn_effects",
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "PostCropVignetteFeather",
+      "display": "Vignette Feather",
+      "group": "extEffects",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "暗角与周围过渡更柔",
+        "decrease": "更硬"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "羽化：使用较低的值，可减弱晕影与晕影周围像素之间的柔化效果。使用较高的值，可增强暗角与暗角周围像素之间的柔化效果。",
+      "source_ref": "adobe_cn_effects",
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "PostCropVignetteMidpoint",
+      "display": "Vignette Midpoint",
+      "group": "extEffects",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "把调整限制在角落附近",
+        "decrease": "对更远离角落的大区域生效"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "中点：使用较低的值，对远离角落的更大区域应用「数量」调整。使用较高的值，将调整限制在靠近角部的区域。",
+      "source_ref": "adobe_cn_effects",
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "PostCropVignetteRoundness",
+      "display": "Vignette Roundness",
+      "group": "extEffects",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "暗角更接近圆形",
+        "decrease": "更接近椭圆"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "圆度：使用较低的值，使晕影效果变得更加椭圆。使用较高的值，使暗角效果变得更圆。",
+      "source_ref": "adobe_cn_effects",
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "PostCropVignetteHighlightContrast",
+      "display": "Vignette Highlight Contrast",
+      "group": "extEffects",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "保留更多高光对比",
+        "decrease": "减少保留"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "高光：当「数量」为负数时，较低的值会降低高光对比度保留效果，而较高的值则会增强该效果，这非常适合带有蜡烛和灯光等低高光的照片。",
+      "source_ref": "adobe_cn_effects",
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "PostCropVignetteStyle",
+      "display": "Vignette Style",
+      "group": "extEffects",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "枚举：高光优先/颜色优先/绘画叠加",
+        "decrease": "同上"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "",
+      "source_ref": null,
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "GrainAmount",
+      "display": "Grain Amount",
+      "group": "extEffects",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "颗粒更强",
+        "decrease": "更弱"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "颗粒：控制图像颗粒效果的数量、大小和粗糙度。",
+      "source_ref": "adobe_cn_effects",
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "GrainSize",
+      "display": "Grain Size",
+      "group": "extEffects",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "颗粒更大",
+        "decrease": "更细"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "大小：允许调整颗粒效果的整体强度。",
+      "source_ref": "adobe_cn_effects",
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "GrainFrequency",
+      "display": "Grain Frequency",
+      "group": "extEffects",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "颗粒更锐利",
+        "decrease": "更柔和"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "粗糙度：让颗粒具备锐度或清晰度。",
+      "source_ref": "adobe_cn_effects",
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "AutoLateralCA",
+      "display": "Remove Chromatic Aberration",
+      "group": "extLens",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "开启自动去色差",
+        "decrease": "关闭"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "",
+      "source_ref": null,
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "OverrideLookVignette",
+      "display": "Override Look Vignette",
+      "group": "extLens",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "覆盖配置文件自带的暗角",
+        "decrease": "沿用配置文件"
+      },
+      "use_when": [],
+      "caution": [
+        "同上"
+      ],
+      "quote": "",
+      "source_ref": null,
+      "manifest_tier": "ext"
+    },
+    {
+      "field": "ShadowTint",
+      "display": "Shadow Tint",
+      "group": "extCalibrate",
+      "writable": false,
+      "blocked_reason": "tier=ext，接口写不进。",
+      "effect": {
+        "increase": "阴影区加洋红",
+        "decrease": "阴影区加绿"
+      },
+      "use_when": [
+        "只修阴影偏色，不动全局白平衡"
+      ],
+      "caution": [
+        "官方推荐的暗部偏色修法，但本接口写不进；只能用 Tint 折中，代价是全图一起变"
+      ],
+      "quote": "如果在调整色温和色调之后，发现阴影区域中存在绿色或洋红偏色，则可以尝试调整「相机校准」面板中的「阴影色调」滑块将其消除。",
+      "source_ref": "adobe_cn_tone_color",
+      "manifest_tier": "ext"
+    }
+  ],
+  "writable_semantics": "writable 指「本接口实际能不能写进 Lightroom」，不等同于 fields_manifest 的 tier。tier=v1 但值为 rdf:Seq 结构的曲线字段（ToneCurve* 共 5 个）标 writable=false：解析器不支持该结构，守卫会拒（见 online_decode/README.md §8）。其它字段 writable == (tier==v1)。对账脚本请用 manifest_tier 字段比对 tier。",
+  "knowledge_hash": "a9f752b51cb4c12aeca49938cca23393014b4902cc1d675dc4e9639227de586c",
+  "group_notes": {
+    "hsl": "作用于特定颜色范围，影响画面中所有相近颜色。色相：沿色环顺时针/逆时针偏移；饱和度：更艳/更灰；明度：更亮/更暗。三者互相牵动，改色相后必须回头复核饱和与明度的观感。",
+    "colorgrading": "高光/中间调/阴影三段染色。色相是 0-360 环形量，不适用「大小」直觉；饱和度是强度，0 等于不染；混合控两段重叠，平衡 >0 偏重高光、<0 偏重阴影。色相必须配饱和度才看得见效果。",
+    "parametric": "曲线式四段区域滑块，不写点曲线也能做近似。高光/阴影段影响曲线两极，亮色调/暗色调段影响中部，与 Highlights2012 / Shadows2012 作用区重叠，选一个用即可。Split 类字段改的是分界位置而非强度，一动则四段的落点全部改变。"
+  },
+  "detail_groups": [
+    "whitebalance",
+    "basic"
+  ],
+  "detail_groups_note": "只有这两组逐条给出方向与禁忌：影调控件管哪段直方图、什么情况下动了也白动，是教程相对模型先验的真正增量。其余可写组只给字段名与组级说明，避免请求包膨胀。"
+}
